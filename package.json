@@ -1,0 +1,18 @@
+{
+  "name": "az-en-kutyaiskolam",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Az Én Kutyaiskolám (Miskolc) weboldala: React kliens, Node.js backend",
+  "workspaces": ["backend", "client"],
+  "scripts": {
+    "dev": "concurrently -k -n backend,client -c red,blue \"npm run dev -w backend\" \"npm run dev -w client\"",
+    "build": "npm run build -w client && npm run build -w backend",
+    "start": "npm run start -w backend",
+    "jelszo": "npm run jelszo -w backend",
+    "typecheck": "npm run typecheck -w backend && npm run typecheck -w client"
+  },
+  "devDependencies": {
+    "concurrently": "9.1.0"
+  },
+  "engines": { "node": ">=20" }
+}

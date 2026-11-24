@@ -1,0 +1,12 @@
+node_modules/
+client/dist/
+backend/dist/
+.DS_Store
+
+# jelszó-lenyomatok, személyes adatok, munkamenetek, napló, mentések
+backend/data/admin.json
+backend/data/members.json
+backend/data/trainers.json
+backend/data/sessions.json
+backend/data/log*.jsonl
+backend/data/backups/

@@ -1,0 +1,660 @@
+{
+  "site": {
+    "name": "Az Én Kutyaiskolám",
+    "tagline": "Kutyaiskola Miskolc",
+    "logo": "/uploads/regi/logo.png",
+    "phone1": "+36 30 678 8328",
+    "phone2": "+36 20 669 6904",
+    "address": "Miskolc, Szentpéteri kapu, Stromfeld laktanya területe",
+    "addressShort": "Miskolc, Szentpéteri kapu",
+    "hours": "Szombat és vasárnap 7:00-12:00",
+    "byCar": "A temető és a laktanya között, a betonkerítés mögött. Parkoló a nagy kék kapu mögött.",
+    "byBus": "Repülőtér végállomás, onnan kb. 5 perc séta.",
+    "lat": "48.136317",
+    "lng": "20.779252",
+    "association": "„Ha megszelídítetted gondoskodj róla” Közhasznú Egyesület",
+    "taxId": "18288195-1-05",
+    "bank": "OTP Bank 11734066-29901601",
+    "privacyUrl": "/uploads/regi/adatkezelesi-tajekoztato_kutyaiskola.pdf",
+    "footerText": "Az Én Kutyaiskolám a miskolci „Ha megszelídítetted gondoskodj róla” Közhasznú Egyesület kutyaiskolája. Minden fajtát és keveréket szeretettel várunk.",
+    "ctaTitle": "Ezen a hétvégén is ott leszünk. Ti is jöttök?",
+    "ctaText": "Hívj, mondd el, mi a gond, és megmondjuk, melyik csoportban kezdjetek.",
+    "email": "kutyaiskolamiskolc@gmail.com",
+    "facebook": "https://www.facebook.com/profile.php?id=100057152062685",
+    "onePercentTitle": "Támogasd adód 1%‑ával!",
+    "onePercentText": "Kérjük, támogasd adód 1%-ával a „Ha megszelídítetted gondoskodj róla” Egyesületet, Az ÉN Kutyaiskolám alapítóját. Neked nem kerül semmibe, nekünk sokat jelent.",
+    "onePercentImage": "/uploads/fb/borito.jpg"
+  },
+  "home": {
+    "badge": "Miskolc egyetlen MEOESZ-szel szerződött kutyaiskolája",
+    "heroTitle1": "A kutyád nem rossz.",
+    "heroTitle2": "Csak még nem tanulta meg.",
+    "heroText": "Húzza a pórázt? Nem jön vissza? Ráugrik mindenkire? Mesterkiképzőink megmutatják, hogyan lesz belőle olyan társ, akivel minden séta öröm.",
+    "heroImages": [
+      "/uploads/fb/aug-2.jpg",
+      "/uploads/fb/aug-1.jpg",
+      "/uploads/fb/flaszter-foto.jpg",
+      "/uploads/fb/iskola.jpg"
+    ],
+    "stats": [
+      {
+        "value": "35",
+        "suffix": "+",
+        "label": "év kiképzési tapasztalat"
+      },
+      {
+        "value": "7",
+        "suffix": "",
+        "label": "féle képzés"
+      },
+      {
+        "value": "4",
+        "suffix": "",
+        "label": "koszorús mesterkiképző"
+      },
+      {
+        "value": "100",
+        "suffix": "%",
+        "label": "fajta és keverék szívesen látott"
+      }
+    ],
+    "whyTitle": "Nem kutyasétáltatás.",
+    "whyTitleRed": "Valódi kiképzés.",
+    "whyText": "Több mint 35 éve neveljük Miskolc kutyáit és gazdijait. Arany- és ezüstkoszorús mesterkiképzőink nem csak a kutyát tanítják: megmutatják neked is, hogyan értsd meg a társadat.",
+    "whyImage": "/uploads/fb/iskola.jpg",
+    "whyBadge": "E · BH · IGP",
+    "whyBadgeText": "hivatalos vizsgák Miskolcon",
+    "whyPoints": [
+      "Miskolcon csak nálunk tehető MEOESZ által elfogadott vizsga",
+      "Csoportos órák hétvégén, munka mellett is beleférnek",
+      "Csivavától a kuvaszig, fajtatiszta és keverék is jöhet"
+    ],
+    "marquee": [
+      "Kutyaovi",
+      "Engedelmes képzés",
+      "BH vizsga",
+      "Agility",
+      "Ölebtréning",
+      "Szimat tanfolyam",
+      "Őrző-védő",
+      "Városi séták"
+    ],
+    "problemsTitle": "Ezekkel jönnek hozzánk a gazdik",
+    "problemsText": "Nem vagy egyedül, és nem a kutyád a hibás. Szinte minden „rossz szokás” mögött az áll, hogy a kutya nem érti, mit várunk tőle. Ezen tudunk segíteni.",
+    "problems": [
+      {
+        "icon": "poraz",
+        "quote": "Úgy húz a pórázon, mintha ő sétáltatna engem.",
+        "why": "A húzás megtanult viselkedés: eddig azzal jutott előre. Megfordítjuk a szabályt.",
+        "fix": "Lábhoz követés lépésről lépésre, csoportban, figyelemelterelés mellett, hogy az utcán is működjön.",
+        "course": "Engedelmes E-képzés"
+      },
+      {
+        "icon": "vissza",
+        "quote": "Ha elengedem, hátat fordít és elszalad.",
+        "why": "A megbízható behívás nem szerencse, hanem gyakorlás. Ez a legfontosabb biztonsági parancs.",
+        "fix": "Behívás és szabad követés jutalomfalattal, játékkal, fokozatosan növelve a távolságot.",
+        "course": "Előkészítő és Engedelmes"
+      },
+      {
+        "icon": "ugras",
+        "quote": "Mindenkire ráugrál, a vendégeim félnek tőle.",
+        "why": "Az ugrálás köszönés, csak épp túl lelkes. Önuralmat kell tanulnia.",
+        "fix": "Ül, fekszik, marad vezényszóra, és gyakoroljuk az idegen ember melletti nyugodt elhaladást.",
+        "course": "Engedelmes E-képzés"
+      },
+      {
+        "icon": "figyelem",
+        "quote": "Ugat és rángat, ha más kutyát lát séta közben.",
+        "why": "Gyakran bizonytalanság vagy túlzott izgalom van mögötte, nem „gonoszság”.",
+        "fix": "Kontrollált csoportos közegben, sok kutya között tanul meg nyugodtan viselkedni, tapasztalt oktató mellett.",
+        "course": "Engedelmes és Ölebtréning"
+      },
+      {
+        "icon": "sziv",
+        "quote": "Kiskutyám van, és fogalmam sincs, hol kezdjem.",
+        "why": "3-7 hónapos kor között dől el, milyen felnőtt kutya lesz belőle. Ez a legjobb időpont.",
+        "fix": "Kutyaovi: játékos szocializáció más kölykökkel és emberekkel, bekerített, biztonságos részen.",
+        "course": "Kutyaovi"
+      },
+      {
+        "icon": "villam",
+        "quote": "Energiabomba, otthon mindent szétszed.",
+        "why": "Az unatkozó kutya keres magának elfoglaltságot. Adjunk neki értelmes feladatot!",
+        "fix": "Agility: akadálypálya, ahol kifárad testben és fejben, közben pedig a kötésetek is erősödik.",
+        "course": "Agility alapképzés"
+      }
+    ],
+    "journeyTitle": "3 hónap, és rá sem ismersz",
+    "journeyText": "Egy engedelmes tanfolyam 3 hónapig tart, minden szombaton és vasárnap délelőtt. Így néz ki az út az első alkalomtól a vizsgáig.",
+    "journeyImage": "/uploads/fb/flaszter-foto.jpg",
+    "journey": [
+      {
+        "label": "Első hétvége",
+        "title": "Megismerünk",
+        "text": "Felmérjük, honnan indultok, és beosztunk a megfelelő csoportba."
+      },
+      {
+        "label": "Első hetek",
+        "title": "Alapok",
+        "text": "Figyelem, behívás, lábhoz követés, ül, fekszik, marad."
+      },
+      {
+        "label": "Második hónap",
+        "title": "Való élet",
+        "text": "Idegenek, más kutyák, zavaró tényezők: a parancs mindenhol működik."
+      },
+      {
+        "label": "3. hónap vége",
+        "title": "Vizsga",
+        "text": "A tanfolyam MEOESZ által elfogadott E- vagy BH-vizsgával zárul."
+      }
+    ]
+  },
+  "courses": {
+    "pageImage": "/uploads/regi/contents-article-14-33080-article-600x500.jpg",
+    "intro": "Minden képzésen egészséges, oltott kutyák vehetnek részt. Az oltási könyv másolatát kérjük leadni.",
+    "items": [
+      {
+        "title": "Kutyaovi",
+        "age": "3-7 hónap",
+        "image": "/uploads/regi/contents-article-14-33079-article-600x500.jpg",
+        "text": "Játékos szocializáció kölyköknek egy külön bekerített részen. Bármikor be lehet kapcsolódni.",
+        "for": "Ha most hoztad haza a kölyköt.",
+        "tags": "Vasárnap 11:00 | folyamatos kezdés"
+      },
+      {
+        "title": "Előkészítő",
+        "age": "ovi után",
+        "image": "/uploads/regi/contents-article-14-48914-article-600x500.jpg",
+        "text": "Pórázon vezetés, behívás és szabad követés jutalomfalattal és játékkal.",
+        "for": "Ha kinőtte az ovit, de még fiatal.",
+        "tags": "Vasárnap 9:00-tól"
+      },
+      {
+        "title": "Engedelmes E-képzés",
+        "age": "legnépszerűbb",
+        "image": "/uploads/regi/contents-article-14-33080-article-600x500.jpg",
+        "text": "Lábhoz követés, ül, fekszik, helyben maradás, idegen melletti elhaladás, akadályugrás. Cél: a kutya bármely helyzetben megállítható legyen.",
+        "for": "Ha húz, nem jön vissza, ugrál.",
+        "tags": "3 hónap | E-vizsgával zárul"
+      },
+      {
+        "title": "Ölebtréning",
+        "age": "kistestűek",
+        "image": "/uploads/regi/contents-article-14-33500-article-600x500.jpg",
+        "text": "Behívás, ül, fekszik, marad, lábhoz, valamint szocializáció más kutyákkal, emberekkel.",
+        "for": "Mert a kicsiknek is kell nevelés.",
+        "tags": "kis fajták"
+      },
+      {
+        "title": "Agility alapképzés",
+        "age": "7-8 hónaptól",
+        "image": "/uploads/regi/contents-article-14-62596-article-600x500.jpg",
+        "text": "Bármilyen fajtának és méretnek. Hozz jutalomfalatot és kedvenc játékot, a pályát mi adjuk.",
+        "for": "Ha energiabomba, és sportolnátok együtt.",
+        "tags": "alap engedelmesség kell"
+      },
+      {
+        "title": "Kísérőkutya (BH) képzés",
+        "age": "haladó",
+        "image": "/uploads/regi/contents-article-14-33136-article-600x500.jpg",
+        "text": "Felkészítés a BH-vizsgára, a HPO/IPO munka alapja. Nyomkövetés választható.",
+        "for": "Ha hivatalos vizsgát, sportot szeretnél.",
+        "tags": "BH-vizsgával zárul"
+      }
+    ],
+    "note": "Kiállításra készülsz? Ringdresszúra hivatásos handlerrel, előre egyeztetett időpontban.",
+    "levels": [
+      {
+        "title": "Kutyaovi",
+        "text": "Szocializáció kölyökkorban, kötetlen játékkal."
+      },
+      {
+        "title": "Előkészítő",
+        "text": "Az alapok: póráz, behívás, figyelem."
+      },
+      {
+        "title": "Kezdő engedelmes",
+        "text": "3 hónapos tanfolyam, E- vagy BH-vizsgával zárul."
+      },
+      {
+        "title": "Haladó",
+        "text": "BH, HPO vagy IPO, sikeres E-vizsga után."
+      }
+    ]
+  },
+  "schedule": {
+    "title": "Hétvégén, amikor neked is jó",
+    "text": "Szombaton és vasárnap délelőtt, 7:00 és 12:00 között. Nem kell szabadságot kivenned hozzá.",
+    "rows": [
+      {
+        "time": "07:00-09:00",
+        "name": "Szimat tanfolyam",
+        "note": ""
+      },
+      {
+        "time": "07:00-09:00",
+        "name": "Haladó engedelmes",
+        "note": ""
+      },
+      {
+        "time": "09:00-10:00",
+        "name": "Kezdő agility",
+        "note": ""
+      },
+      {
+        "time": "09:00-10:30",
+        "name": "Ölebtréning",
+        "note": ""
+      },
+      {
+        "time": "09:00-10:30",
+        "name": "Középfokú engedelmes",
+        "note": ""
+      },
+      {
+        "time": "09:00-13:30",
+        "name": "Őrző-védő",
+        "note": ""
+      },
+      {
+        "time": "10:00-11:00",
+        "name": "Haladó agility",
+        "note": ""
+      },
+      {
+        "time": "10:30-12:00",
+        "name": "Alapfokú engedelmes",
+        "note": ""
+      },
+      {
+        "time": "11:00-12:00",
+        "name": "Kutyaovi",
+        "note": "Vasárnap"
+      },
+      {
+        "time": "Egyeztetéssel",
+        "name": "Ringdresszúra",
+        "note": "Előre egyeztetve"
+      }
+    ]
+  },
+  "trainers": {
+    "pageImage": "/uploads/fb/iskola.jpg",
+    "intro": "Mindannyian maguk is kutyások. A kutyaiskolát a miskolci „Ha megszelídítetted gondoskodj róla” Közhasznú Egyesület működteti.",
+    "items": [
+      {
+        "name": "Mogyorósi István †",
+        "role": "Alapító · aranykoszorús mesterkiképző",
+        "image": "/uploads/regi/contents-static-2-1350851257-200x.jpg",
+        "text": "Közel 35 évig vezette a miskolci kiképzést, munkateljesítmény-bíró, három cikluson át országos vezetőségi tag. Az iskola az ő szellemiségét viszi tovább.",
+        "memorial": true
+      },
+      {
+        "name": "Zsóri Zsolt",
+        "role": "Ezüstkoszorús mesterkiképző",
+        "image": "/uploads/regi/contents-static-2-15366058733359462-200x.jpg",
+        "text": "A kutyaovi vezetője, a magyar fajták szerelmese. A Magyar Kuvasz Fajtagondozó Egyesület vezetőségi tagja.",
+        "memorial": false
+      },
+      {
+        "name": "Bernyiscsek István",
+        "role": "Ezüstkoszorús mesterkiképző",
+        "image": "/uploads/regi/contents-static-2-1350851840-200x.jpg",
+        "text": "Gyerekkora óta kutyázik. Dobermannjai Champion és IPO II címet szereztek.",
+        "memorial": false
+      },
+      {
+        "name": "Bodó Barbara",
+        "role": "Ezüstkoszorús mesterkiképző",
+        "image": "/uploads/regi/contents-static-2-1409150784-200x.jpg",
+        "text": "Az ölebtréning vezetője, munkavizsgás orosz fekete terrier gazdája.",
+        "memorial": false
+      },
+      {
+        "name": "Antal Andrea",
+        "role": "Oktató",
+        "image": "/uploads/regi/contents-static-2-16108884776032250-200x.jpg",
+        "text": "Két yorkie-jával BH1-vizsgát tett, keverékével agilityzik.",
+        "memorial": false
+      },
+      {
+        "name": "Fekete Enikő",
+        "role": "Agility oktató",
+        "image": "/uploads/regi/contents-static-2-16108881342659093-200x.jpg",
+        "text": "Kis- és farkasspitz gazdája, az agility képzés oktatója.",
+        "memorial": false
+      },
+      {
+        "name": "Gergely Mónika",
+        "role": "Oktató",
+        "image": "/uploads/regi/contents-static-2-17417674818659729-200x.jpg",
+        "text": "Bemutatkozás hamarosan.",
+        "memorial": false
+      }
+    ]
+  },
+  "reviews": {
+    "title": "Amit a gazdik mondanak",
+    "intro": "A Facebookon 35 értékelés alapján gazdáink 100%-a ajánl minket. Íme néhány tapasztalat.",
+    "items": [
+      {
+        "text": "Fél évig rángatott a pórázon, már sétálni sem volt kedvem. A tanfolyam végére lazán, mellettem jön. A szomszédok is megkérdezték, mi történt.",
+        "name": "Gazdi neve",
+        "detail": "és kutyája, Engedelmes E",
+        "sample": true
+      },
+      {
+        "text": "A kutyaoviban a kölykünk magabiztos lett, már nem fél más kutyáktól. Minden vasárnap alig várja, hogy menjünk.",
+        "name": "Gazdi neve",
+        "detail": "és kölyke, Kutyaovi",
+        "sample": true
+      },
+      {
+        "text": "Türelmes, profi oktatók, akik a gazdit is tanítják, nem csak a kutyát. Elsőre sikerült a BH vizsga!",
+        "name": "Gazdi neve",
+        "detail": "és kutyája, BH képzés",
+        "sample": true
+      }
+    ]
+  },
+  "faq": {
+    "items": [
+      {
+        "q": "Miben különbözik a ti kutyaiskolátok?",
+        "a": "Miskolcon mi vagyunk az egyetlen MEOESZ-szel szerződött kutyaiskola, így csak nálunk tehető MEOESZ által elfogadott vizsga. A tanfolyam a vizsgával zárul."
+      },
+      {
+        "q": "Mennyi ideig tart egy képzés?",
+        "a": "Egy engedelmes kiképzés 3 hónap: minden szombaton és vasárnap délelőtt 9:00 és 12:00 között."
+      },
+      {
+        "q": "Milyen kutyával lehet jönni?",
+        "a": "Bármilyen fajtával, fajtatisztával és keverékkel egyaránt. Feltétel, hogy a kutya egészséges és be legyen oltva."
+      },
+      {
+        "q": "Idősebb a kutyám. Nem késő már?",
+        "a": "Nem. Az engedelmes képzésre nincs speciális belépési feltétel, mindenki a kezdő csoportban indul, és onnan halad a saját tempójában."
+      },
+      {
+        "q": "Mik a szintek?",
+        "a": "- Kutyaovi (még nem kiképzés)\n- Előkészítő\n- Kezdő engedelmes: E- vagy BH-vizsgával zárul\n- Haladó: BH, HPO vagy IPO, sikeres E-vizsga után"
+      }
+    ],
+    "rules": [
+      "Érkezz pontosan, és csak az oktató jelzésére lépj a pályára.",
+      "Pórázt csak oktatói utasításra veszünk le, akadályt csak felügyelettel használunk.",
+      "Csak egészséges, oltott kutya jöhet, az oltási könyv másolatát leadjuk.",
+      "Takaríts a kutyád után, zacskót biztosítunk.",
+      "Dohányozni csak a kijelölt helyen lehet.",
+      "Kutyaverekedésnél ne nyúlj a kutyák szájához, kérd az oktatók segítségét."
+    ],
+    "equipment": [
+      {
+        "text": "Egy egysoros láncnyakörv és egy bőr nyakörv",
+        "no": false
+      },
+      {
+        "text": "Bőr vagy heveder póráz, 120-150 cm",
+        "no": false
+      },
+      {
+        "text": "Szájkosár",
+        "no": false
+      },
+      {
+        "text": "Kedvenc játék és jutalomfalat",
+        "no": false
+      },
+      {
+        "text": "Az oltási könyv másolata",
+        "no": false
+      },
+      {
+        "text": "Tüskés nyakörv: tilos",
+        "no": true
+      },
+      {
+        "text": "Lánc- és flexi póráz: nem használható",
+        "no": true
+      }
+    ]
+  },
+  "news": {
+    "items": [
+      {
+        "id": "halloweeni-szalonnasutes-2026",
+        "title": "Halloweeni szalonnasütés október 31-én",
+        "date": "2026-10-28",
+        "label": "Rendezvény",
+        "image": "/uploads/fb/halloween.jpg",
+        "excerpt": "Szeretettel várunk minden régi és új tagunkat 2026. október 31-én 16:00-tól a halloweeni szalonnasütésre a kutyaiskolába.",
+        "body": "Szeretettel várunk minden régi és új tagunkat a **halloweeni szalonnasütésre** Az ÉN Kutyaiskolámba!\n\n- Időpont: **2026. október 31., szombat, 16:00-tól**\n- Helyszín: a kutyaiskola pályája (Miskolc, Szentpéteri kapu, Stromfeld laktanya területe)\n\nHozd a kutyádat, a jó hangulatot, és ha van kedved, egy kis halloweeni kiegészítőt is!",
+        "facts": "Időpont: 2026. október 31., 16:00\nHelyszín: a kutyaiskola pályája",
+        "warning": ""
+      },
+      {
+        "id": "oszi-engedelmessegi-tanfolyamok-2026",
+        "title": "Indulnak az őszi engedelmességi tanfolyamok",
+        "date": "2026-09-28",
+        "label": "Tanfolyam",
+        "image": "/uploads/fb/tanfolyam.jpg",
+        "excerpt": "2026. október 3-tól újra indulnak az engedelmességi tanfolyamok alap, közép és haladó szinten, valamint kutyaovi, ölebtréning, szimat tanfolyam és őrző-védő képzés.",
+        "body": "**2026. október 3-tól** újra indulnak az engedelmességi tanfolyamok Az ÉN Kutyaiskolámban.\n\n## Szintek\n\n- Alapfokú engedelmes\n- Középfokú engedelmes\n- Haladó engedelmes\n\n## További képzéseink\n\n- Kutyaovi\n- Ölebtréning\n- Szimat tanfolyam\n- Őrző-védő\n\nTovábbi információ a **+36 30 678 8328** telefonszámon vagy a [kutyaiskolamiskolc@gmail.com](mailto:kutyaiskolamiskolc@gmail.com) e-mail címen.",
+        "facts": "Kezdés: 2026. október 3.\nSzintek: alap, közép, haladó\nTelefon: +36 30 678 8328",
+        "warning": ""
+      },
+      {
+        "id": "kutyaval-a-flaszteren",
+        "title": "Kutyával a flaszteren: belvárosi séta",
+        "date": "2026-09-28",
+        "label": "Rendezvény",
+        "image": "/uploads/fb/flaszter-okt.jpg",
+        "excerpt": "Laza, kb. egyórás belvárosi szocializációs séta, hogy a kutyák megszokják a városi ingereket, a gazdik pedig tapasztalatot cseréljenek.",
+        "body": "Unod a megszokott parki köröket? Szeretnéd, ha kedvenced magabiztosan, feszültségmentesen közlekedne a városi forgatagban is?\n\nCsatlakozz hozzánk egy laza, kb. egyórás belvárosi szocializációs sétára! A cél, hogy a kutyák megszokják a városi ingereket (zajok, tömeg, autók), a gazdik pedig tapasztalatot cseréljenek.\n\n- Találkozó: Miskolc, Városház tér, a MISKOLC feliratnál\n- Időpont: **2026. október 1., csütörtök, 18:00**\n- Időtartam: kb. 60 perc\n\n## Miért gyertek?\n\n- Ingergazdag környezet: biztonságos gyakorlás kontrollált csapatban.\n- Türelem és fegyelem: megtanuljuk figyelmen kívül hagyni a többi kutyát, ha kell.\n- Gazdi közösség: tapasztalatcsere és jó hangulat.\n\n## Fontos szabályok\n\n- Csak egészséges, oltott kutyák jöhetnek.\n- Fix póráz kötelező, a flexi pórázt kérjük, hagyd otthon.\n- Legyen nálad jutalomfalat, kakizacskó és oltási könyv!",
+        "facts": "Találkozó: Városház tér, MISKOLC felirat\nIdőpont: 2026. október 1., 18:00\nIdőtartam: kb. 60 perc",
+        "warning": "Csak fix pórázzal, egészséges, oltott kutyával lehet jönni."
+      },
+      {
+        "id": "latogatas-konyves-kalman-iskola",
+        "title": "Látogatás a Könyves Kálmán Általános Iskolában",
+        "date": "2026-09-12",
+        "label": "Bemutató",
+        "image": "/uploads/fb/iskola.jpg",
+        "excerpt": "Csodás volt látni, ahogy a gyerekek és a kutyusok a közös pacsik és simogatások közben pillanatok alatt egymásra hangolódtak.",
+        "body": "Csodás volt látni a miskolci **Könyves Kálmán Általános Iskolában**, ahogy a gyerekek és a kutyusok a közös pacsik és simogatások közben pillanatok alatt egymásra hangolódtak, és igazi haverokká váltak.\n\nKöszönjük a meghívást!",
+        "facts": "",
+        "warning": ""
+      },
+      {
+        "id": "bh-igp-vizsga",
+        "title": "Jelentkezés BH és IGP vizsgára",
+        "date": "2025-03-01",
+        "label": "Vizsga",
+        "image": "/uploads/regi/contents-gallery-5-20690-272981-pic-600x500.jpg",
+        "excerpt": "BH vizsgát minden kutya letehet, méret- és fajtakorlátozás nélkül. Itt találod a jelentkezés menetét, a díjakat és hogy mit hozz magaddal.",
+        "body": "Az Én Kutyaiskolám vizsgáira a jelentkezési lap kitöltésével lehet jelentkezni. BH vizsgát minden kutya letehet, méret- és fajtakorlátozás nélkül.\n\n- A vizsga két részből áll: **„A”** gyakorlatok a kiképzőpályán, **„B”** viselkedés a forgalomban.\n- A „B” részre csak az a kutya léphet tovább, amelyik a pályán elérte a maximális pontszám 70%-át.\n- A BH vizsga a későbbi IGBH és IGP vizsga kötelező előfeltétele.\n- Az első BH vizsgával egy időben kötelező kiváltani a [kutyavezetői jogosítványt](https://www.kennelclub.hu/index.php?link=Kutyavezetoi_jogositvany).\n- IGP vizsgára csak sikeres BH vizsga után lehet jelentkezni.\n\n## Mit hozz a vizsgára?\n\n- A kutya eredeti származási lapja és annak kétoldalas másolata (származási lap hiányában az oltási könyv másolata)\n- [Teljesítményfüzet](https://www.kennelclub.hu/index.php?link=teljesitmenyfuzet): akinek nincs, a vizsgáig igényelje\n- A tulajdonos szövetségi kártyájának másolata\n\n## Díjak és fizetés\n\n- BH vizsga: 10 000 Ft/kutya\n- Kutyavezetői jogosítvány (az első BH vizsgához): 2 000 Ft\n- IGP vizsga: 15 000 Ft/kutya + 10 000 Ft/kutya a bizonyítvány kiváltása\n- A díjak MEOE szövetségi kártyával értendők, kártya nélkül a duplája fizetendő (MEOESZ díjszabás, 2023.12.01-től).\n- Fizetés a helyszínen készpénzzel vagy előre utalással: OTP Bank 11734066-29901601\n\n[Nemzetközi munkavizsga-szabályzat (PDF)](/uploads/regi/igp2025.pdf)",
+        "facts": "Jelentkezési határidő: A vizsga hetén szerda éjfélig\nRegisztráció: A vizsga napján 7:30-kor, a helyszínen\nBH vizsgadíj: 10 000 Ft / kutya\nIGP vizsgadíj: 15 000 Ft / kutya",
+        "warning": "A helyszínen nem lehet jelentkezni. A BH vizsgához nem váltható ki 5 nyelvű munkavizsga-bizonyítvány."
+      }
+    ]
+  },
+  "events": {
+    "pageImage": "/uploads/fb/flaszter-foto.jpg",
+    "intro": "Közös ünnepek, bemutatók és vizsgák: nálunk a közösség a pályán kívül is összetart.",
+    "items": [
+      {
+        "title": "Kutyával a flaszteren",
+        "when": "Rendszeresen, Miskolc belváros",
+        "text": "Közös, kb. egyórás belvárosi szocializációs séták: a kutyák megszokják a városi ingereket, a gazdik tapasztalatot cserélnek.",
+        "images": [
+          "/uploads/fb/flaszter-foto.jpg",
+          "/uploads/fb/flaszter-okt.jpg"
+        ],
+        "link": "/hirek/kutyaval-a-flaszteren",
+        "linkText": "Részletek"
+      },
+      {
+        "title": "Halloweeni szalonnasütés",
+        "when": "2026. október 31., 16:00",
+        "text": "Közös szalonnasütés régi és új tagjainkkal, halloweeni hangulatban, a kutyaiskola pályáján.",
+        "images": [
+          "/uploads/fb/halloween.jpg"
+        ],
+        "link": "/hirek/halloweeni-szalonnasutes-2026",
+        "linkText": "Részletek"
+      },
+      {
+        "title": "Iskolai látogatások",
+        "when": "2026. szeptember",
+        "text": "Kutyáinkkal iskolákba is ellátogatunk, ahol a gyerekek biztonságos keretek között ismerkedhetnek a kutyákkal.",
+        "images": [
+          "/uploads/fb/iskola.jpg"
+        ],
+        "link": "/hirek/latogatas-konyves-kalman-iskola",
+        "linkText": "Beszámoló"
+      },
+      {
+        "title": "Vizsgák",
+        "when": "Évente több alkalommal",
+        "text": "Tanfolyamaink vizsgával zárulnak: engedelmes (E), kísérőkutya (BH) és IGP vizsga, MEOESZ által elfogadva. Csak 12 hónaposnál idősebb kutyák vizsgázhatnak.",
+        "images": [
+          "/uploads/regi/contents-gallery-5-20690-272981-pic-600x500.jpg",
+          "/uploads/regi/contents-gallery-5-20690-272984-pic-600x500.jpg",
+          "/uploads/regi/contents-gallery-5-20690-272985-pic-600x500.jpg"
+        ],
+        "link": "/hirek",
+        "linkText": "Jelentkezés vizsgára"
+      },
+      {
+        "title": "Bemutatók",
+        "when": "Városi rendezvényeken",
+        "text": "A kutyaiskola csapata rendszeresen részt vesz bemutatókon, ahol oktatóink és kutyáik megmutatják, mit tanultak.",
+        "images": [
+          "/uploads/regi/contents-gallery-5-32515-492712-pic-600x500.jpg",
+          "/uploads/regi/contents-gallery-5-32515-492713-pic-600x500.jpg",
+          "/uploads/regi/contents-gallery-5-32515-492714-pic-600x500.jpg"
+        ],
+        "link": "",
+        "linkText": ""
+      },
+      {
+        "title": "Mikulás",
+        "when": "Minden decemberben",
+        "text": "Év végi közös ünneplés gazdikkal és kutyákkal. A Mikulás a négylábúakat sem felejti el.",
+        "images": [
+          "/uploads/regi/contents-gallery-5-32900-499719-pic-600x500.jpg",
+          "/uploads/regi/contents-gallery-5-32900-499720-pic-600x500.jpg",
+          "/uploads/regi/contents-gallery-5-32900-499721-pic-600x500.jpg"
+        ],
+        "link": "",
+        "linkText": ""
+      },
+      {
+        "title": "Szalonnasütés",
+        "when": "Hagyomány, pl. 2015.02.21.",
+        "text": "Az év első tanfolyamát hagyományos, jó hangulatú szalonnasütéssel ünnepeljük meg.",
+        "images": [
+          "/uploads/regi/contents-gallery-5-21107-278769-pic-600x500.jpg",
+          "/uploads/regi/contents-gallery-5-21107-278770-pic-600x500.jpg",
+          "/uploads/regi/contents-gallery-5-21107-278771-pic-600x500.jpg"
+        ],
+        "link": "",
+        "linkText": ""
+      },
+      {
+        "title": "Ovi évnyitó",
+        "when": "Szeptember",
+        "text": "Ősszel újraindul a kutyaovi, az első foglalkozáson ismerkednek meg egymással a kölykök.",
+        "images": [
+          "/uploads/regi/contents-gallery-5-20582-271429-pic-600x500.jpg",
+          "/uploads/regi/contents-gallery-5-20582-271430-pic-600x500.jpg",
+          "/uploads/regi/contents-gallery-5-20582-271431-pic-600x500.jpg"
+        ],
+        "link": "",
+        "linkText": ""
+      },
+      {
+        "title": "Pásztorkutyák napja",
+        "when": "2011.09.25. · Miskolc",
+        "text": "A Magyar Pásztorkutyák Munkaversenyének miskolci fordulója, utána terelési próbával juhokkal.",
+        "images": [],
+        "link": "https://www.kutyaiskolamiskolc.hu/videok/pasztorkutyak-napja-2011-09-25-miskolc/33078/",
+        "linkText": "Beszámoló"
+      }
+    ],
+    "videoTitle": "Videó: BH vizsga pályamunka",
+    "videoText": "Nézd meg, hogyan zajlik a BH vizsga a pályán.",
+    "videoUrl": "https://drive.google.com/file/d/1S1YN-DLF29rWv-YI_DI0-guAr7_RJ_1n/view?usp=sharing"
+  },
+  "gallery": {
+    "intro": "Pillanatok a pályáról, vizsgákról és közös ünnepekről.",
+    "items": [
+      {
+        "image": "/uploads/fb/iskola.jpg",
+        "caption": "Csapatunk a Könyves Kálmán Általános Iskolában"
+      },
+      {
+        "image": "/uploads/fb/flaszter-foto.jpg",
+        "caption": "Kutyával a flaszteren, Miskolc belváros"
+      },
+      {
+        "image": "/uploads/fb/aug-1.jpg",
+        "caption": "Behívás gyakorlása a pályán"
+      },
+      {
+        "image": "/uploads/fb/aug-2.jpg",
+        "caption": "Helyben maradás"
+      },
+      {
+        "image": "/uploads/regi/contents-gallery-5-32515-492712-pic-600x500.jpg",
+        "caption": "Bemutató"
+      },
+      {
+        "image": "/uploads/regi/contents-gallery-5-32515-492715-pic-600x500.jpg",
+        "caption": "Bemutató"
+      },
+      {
+        "image": "/uploads/regi/contents-gallery-5-32515-492718-pic-600x500.jpg",
+        "caption": "Bemutató"
+      },
+      {
+        "image": "/uploads/regi/contents-gallery-5-32515-492722-pic-600x500.jpg",
+        "caption": "Bemutató"
+      },
+      {
+        "image": "/uploads/regi/contents-gallery-5-32900-499719-pic-600x500.jpg",
+        "caption": "Mikulás"
+      },
+      {
+        "image": "/uploads/regi/contents-gallery-5-20576-271344-pic-600x500.jpg",
+        "caption": "Életképek a kutyaoviból"
+      },
+      {
+        "image": "/uploads/regi/contents-gallery-5-20576-271350-pic-600x500.jpg",
+        "caption": "Életképek a kutyaoviból"
+      },
+      {
+        "image": "/uploads/regi/contents-gallery-5-21107-278769-pic-600x500.jpg",
+        "caption": "Szalonnasütés"
+      },
+      {
+        "image": "/uploads/regi/contents-gallery-5-20580-271410-pic-600x500.jpg",
+        "caption": "Portrék"
+      },
+      {
+        "image": "/uploads/regi/contents-gallery-5-20580-271414-pic-600x500.jpg",
+        "caption": "Portrék"
+      },
+      {
+        "image": "/uploads/regi/contents-gallery-5-20581-271421-pic-600x500.jpg",
+        "caption": "Önfeledt játék"
+      },
+      {
+        "image": "/uploads/regi/contents-gallery-5-20690-272981-pic-600x500.jpg",
+        "caption": "Vizsga"
+      }
+    ]
+  }
+}
