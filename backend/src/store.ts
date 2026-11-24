@@ -92,6 +92,6 @@ export function audit(req: Request, action: string, details: Partial<LogEntry> =
 export function readLog(limit = 300): LogEntry[] {
   try { return fs.readFileSync(FILES.log, 'utf8').trim().split('\n').filter(Boolean).slice(-limit).map(l => JSON.parse(l) as LogEntry).reverse(); } catch { return []; }
 }
-const ENV_PW = process.env.ADMIN_PASSWORD || '';
+const ENV_PW = (process.env.ADMIN_PASSWORD || '').trim();
 const envAdmin: PwHash | null = ENV_PW.length >= 12 ? hashPw(ENV_PW) : null;
 export const readAdmin = () => readJson<PwHash | null>(FILES.admin, null) ?? envAdmin;
