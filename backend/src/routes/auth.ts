@@ -17,7 +17,7 @@ auth.post('/login', (req, res) => {
   const ip = clientIp(req);
   if (tooMany(['admin:ip:' + ip], 5) || tooMany(['admin:acct'], 30)) return res.status(429).json(TOO_MANY);
   const admin = readAdmin();
-  if (!admin) return res.status(503).json({ error: 'Nincs még admin jelszó beállítva. Futtasd: npm run jelszo' });
+  if (!admin) return res.status(503).json({ error: 'Nincs admin jelszó beállítva. Helyben: npm run jelszo. Tárhelyen: ADMIN_PASSWORD környezeti változó, legalább 12 karakter.' });
   if (!verifyPw(req.body?.password, admin)) { addFail(['admin:ip:' + ip, 'admin:acct']); return res.status(401).json({ error: 'Hibás jelszó' }); }
   clearFails(['admin:ip:' + ip]);
   startSession(req, res, 'admin', 'admin');

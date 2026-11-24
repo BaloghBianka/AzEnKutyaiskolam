@@ -69,6 +69,7 @@ for (const sig of ['SIGTERM', 'SIGINT'] as const) process.on(sig, () => { flushS
 
 app.listen(PORT, () => {
   console.log(`Backend fut: http://localhost:${PORT}`);
+  if (process.env.ADMIN_PASSWORD && process.env.ADMIN_PASSWORD.length < 12) console.log('FIGYELEM: az ADMIN_PASSWORD rövidebb 12 karakternél, ezért nincs használatban.');
   if (!readAdmin()) console.log('FIGYELEM: nincs admin jelszó. Állítsd be: npm run jelszo, vagy az ADMIN_PASSWORD környezeti változóval (min. 12 karakter).');
   if (!TRUST_PROXY) console.log('Megjegyzés: TRUST_PROXY=0. Ha a szerver proxy mögött fut (pl. Render), állítsd TRUST_PROXY=1-re.');
 });
