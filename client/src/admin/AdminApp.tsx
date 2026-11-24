@@ -29,6 +29,9 @@ import SaveIcon from '@mui/icons-material/Save';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PublicIcon from '@mui/icons-material/Public';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import InputAdornment from '@mui/material/InputAdornment';
 import type { Content } from '@shared/types';
 import { adminTheme } from './theme';
 import { SCHEMA, isSection, type SectionDef } from './schema';
@@ -66,6 +69,7 @@ export default function AdminApp() {
 
 function Login() {
   const [pw, setPw] = useState('');
+  const [show, setShow] = useState(false);
   const login = useAdminLogin();
   return (
     <Box sx={{ minHeight: '100vh', display: 'grid', placeItems: 'center', bgcolor: 'secondary.main', p: 2 }}>
@@ -74,7 +78,14 @@ function Login() {
           <Box component="img" src={LOGO} alt="" sx={{ height: 64, width: 64, objectFit: 'cover', objectPosition: 'left', filter: 'brightness(0)' }} />
           <Typography variant="h5">Szerkesztőfelület</Typography>
           <Typography color="text.secondary" variant="body2">Jelentkezz be az admin jelszóval a weboldal szerkesztéséhez.</Typography>
-          <TextField type="password" label="Jelszó" autoComplete="current-password" required autoFocus value={pw} onChange={e => setPw(e.target.value)} size="medium" />
+          <TextField type={show ? 'text' : 'password'} label="Jelszó" autoComplete="current-password" required autoFocus value={pw} onChange={e => setPw(e.target.value)} size="medium"
+            slotProps={{ htmlInput: { autoCapitalize: 'none', autoCorrect: 'off', spellCheck: false }, input: { endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={() => setShow(s => !s)} onMouseDown={e => e.preventDefault()} edge="end" aria-label={show ? 'Jelszó elrejtése' : 'Jelszó megjelenítése'} aria-pressed={show}>
+                  {show ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                </IconButton>
+              </InputAdornment>
+            ) } }} />
           {login.isError && <Alert severity="error">{(login.error as Error).message}</Alert>}
           <Button type="submit" variant="contained" size="large" disabled={login.isPending}>{login.isPending ? 'Belépés...' : 'Belépés'}</Button>
           <Button href="/" color="inherit" size="small">Vissza a weboldalra</Button>
