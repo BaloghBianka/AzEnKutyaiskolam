@@ -3,7 +3,7 @@ import crypto from 'node:crypto';
 import type { Request } from 'express';
 import { FILES } from './config';
 import { readJson, writeJsonAtomic, backupBeforeWrite, budToday, str, isDate } from './util';
-import { clientIp, type PwHash } from './security';
+import { clientIp, hashPw, type PwHash } from './security';
 import { getSession } from './sessions';
 import type { Content, Pass, AdminMember, MemberView, TrainerAccount, TrainerPassView, TodayItem, LogEntry } from './shared/types';
 
@@ -92,4 +92,6 @@ export function audit(req: Request, action: string, details: Partial<LogEntry> =
 export function readLog(limit = 300): LogEntry[] {
   try { return fs.readFileSync(FILES.log, 'utf8').trim().split('\n').filter(Boolean).slice(-limit).map(l => JSON.parse(l) as LogEntry).reverse(); } catch { return []; }
 }
-export const readAdmin = () => readJson<PwHash | null>(FILES.admin, null);
+const ENV_PW = process.env.ADMIN_PASSWORD || '';
+const envAdmin: PwHash | null = ENV_PW.length >= 12 ? hashPw(ENV_PW) : null;
+export const readAdmin = () => readJson<PwHash | null>(FILES.admin, null) ?? envAdmin;
