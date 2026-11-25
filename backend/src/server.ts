@@ -52,6 +52,10 @@ app.get(['/edzo', '/edzo/*'], (req, res) => res.redirect(301, '/kikepzo' + req.p
 const indexHtml = path.join(CLIENT_DIST, 'index.html');
 if (fs.existsSync(indexHtml)) {
   app.use(express.static(CLIENT_DIST, { index: false, maxAge: '7d', setHeaders: (res, p) => { if (!p.includes(`${path.sep}assets${path.sep}`)) res.setHeader('Cache-Control', 'no-cache'); } }));
+  const iconDir = path.join(CLIENT_DIST, 'icons');
+  app.get(['/apple-touch-icon.png', '/apple-touch-icon-precomposed.png'], (_req, res) => res.sendFile(path.join(iconDir, 'apple-touch-icon.png'), { maxAge: '7d' }));
+  app.get('/favicon.ico', (_req, res) => res.type('png').sendFile(path.join(iconDir, 'favicon-64.png'), { maxAge: '7d' }));
+  app.get(/\.[a-z0-9]{2,5}$/i, (_req, res) => res.status(404).type('text').send('Nem található'));
   app.get('*', (_req, res) => { res.setHeader('Cache-Control', 'no-cache'); res.sendFile(indexHtml); });
 } else {
   app.get('/', (_req, res) => res.type('text').send('A kliens még nincs lefordítva. Fejlesztéshez: npm run dev (http://localhost:5173), élesben: npm run build.'));
