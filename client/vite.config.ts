@@ -38,10 +38,15 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,png,svg,woff2}'],
         globIgnores: ['**/AdminApp-*.js'],
         navigateFallback: '/index.html',
-        navigateFallbackDenylist: [/^\/api\//, /^\/uploads\//, /^\/fonts\//],
+        navigateFallbackDenylist: [/^\/api\//, /^\/uploads\//, /^\/fonts\//, /^\/kikepzo/],
         cleanupOutdatedCaches: true,
         clientsClaim: true,
         runtimeCaching: [
+          {
+            urlPattern: ({ url, sameOrigin, request }) => sameOrigin && request.mode === 'navigate' && url.pathname.startsWith('/kikepzo'),
+            handler: 'NetworkFirst',
+            options: { cacheName: 'kikepzo-page', networkTimeoutSeconds: 6, expiration: { maxEntries: 5 }, plugins: [{ cacheKeyWillBeUsed: async () => '/kikepzo' }, { handlerDidError: async () => (await caches.match('/kikepzo')) || (await caches.match('/index.html', { ignoreSearch: true })) }] }
+          },
           {
             urlPattern: ({ url, sameOrigin }) => sameOrigin && url.pathname.startsWith('/fonts/'),
             handler: 'CacheFirst',

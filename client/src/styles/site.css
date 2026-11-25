@@ -720,7 +720,7 @@ main{display:block}
 .pwa-pill{pointer-events:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--dark);color:#fff;border-radius:14px;padding:12px 16px;font-size:.9rem;font-weight:600;box-shadow:0 18px 40px -16px rgba(0,0,0,.55);animation:smsIn .4s var(--ease) both}
 .pwa-pill.off{justify-self:center;background:#3a3a3a;padding:7px 14px;font-size:.78rem;border-radius:999px;gap:8px}
 .pwa-pill.off::before{content:"";width:8px;height:8px;border-radius:50%;background:#f0a500}
-.pwa-pill.upd span{flex:1;min-width:180px}
+.pwa-pill.upd span{flex:1 1 100%}
 .pwa-pill button{font:inherit;font-weight:700;font-size:.82rem;letter-spacing:.04em;border:0;border-radius:8px;padding:.5rem .9rem;cursor:pointer;background:var(--red);color:#fff}
 .pwa-pill button.ghost{background:transparent;color:rgba(255,255,255,.7)}
 @media (max-width:760px){.pwa-bar{bottom:calc(88px + env(safe-area-inset-bottom))}}

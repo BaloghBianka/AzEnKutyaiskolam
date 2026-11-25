@@ -21,11 +21,26 @@ export const useOnline = () => useSyncExternalStore(subscribeOnline, () => navig
 export const isStandalone = () => matchMedia('(display-mode: standalone)').matches || (navigator as Navigator & { standalone?: boolean }).standalone === true;
 const isIos = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
+let quietSince = Date.now();
+let touched = false;
+if (typeof window !== 'undefined') {
+  for (const ev of ['pointerdown', 'keydown', 'touchstart'] as const) addEventListener(ev, () => { touched = true; }, { passive: true, capture: true });
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') { quietSince = Date.now(); touched = false; } });
+}
+const QUIET_WINDOW = 20_000;
+const canAutoUpdate = () => !touched && Date.now() - quietSince < QUIET_WINDOW;
+
 export function PwaBar() {
   const online = useOnline();
   const { needRefresh: [needRefresh, setNeedRefresh], updateServiceWorker } = useRegisterSW({
-    onRegisteredSW(_url, reg) { if (reg) setInterval(() => { if (navigator.onLine) reg.update().catch(() => {}); }, 60 * 60 * 1000); }
+    onRegisteredSW(_url, reg) {
+      if (!reg) return;
+      const check = () => { if (navigator.onLine) reg.update().catch(() => {}); };
+      setInterval(check, 60 * 60 * 1000);
+      document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') check(); });
+    }
   });
+  useEffect(() => { if (needRefresh && canAutoUpdate()) updateServiceWorker(true); }, [needRefresh, updateServiceWorker]);
   return (
     <div className="pwa-bar" aria-live="polite">
       {!online && <div className="pwa-pill off" role="status">Offline: nincs internet</div>}

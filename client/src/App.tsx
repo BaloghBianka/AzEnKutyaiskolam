@@ -70,9 +70,9 @@ function AppStart() {
   useEffect(() => {
     const viaApp = new URLSearchParams(search).has('app');
     if (!viaApp && !(isStandalone() && pathname === '/')) return;
-    if (pathname !== '/') { navigate(pathname, { replace: true }); return; }
-    let target = '/tagoknak';
-    try { const v = localStorage.getItem(START_KEY); if (v && APP_PAGES.includes(v)) target = v; } catch { }
+    let stored: string | null = null;
+    try { const v = localStorage.getItem(START_KEY); if (v && APP_PAGES.includes(v)) stored = v; } catch { }
+    const target = stored || (pathname !== '/' ? pathname : '/tagoknak');
     navigate(target, { replace: true });
   }, []);
   return null;

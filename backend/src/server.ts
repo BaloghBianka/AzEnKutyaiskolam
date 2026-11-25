@@ -56,6 +56,15 @@ if (fs.existsSync(indexHtml)) {
   app.get(['/apple-touch-icon.png', '/apple-touch-icon-precomposed.png'], (_req, res) => res.sendFile(path.join(iconDir, 'apple-touch-icon.png'), { maxAge: '7d' }));
   app.get('/favicon.ico', (_req, res) => res.type('png').sendFile(path.join(iconDir, 'favicon-64.png'), { maxAge: '7d' }));
   app.get(/\.[a-z0-9]{2,5}$/i, (_req, res) => res.status(404).type('text').send('Nem található'));
+  app.get(['/kikepzo', '/kikepzo/*'], (_req, res) => {
+    res.setHeader('Cache-Control', 'no-cache');
+    try {
+      const html = fs.readFileSync(indexHtml, 'utf8')
+        .replace('href="/manifest.webmanifest"', 'href="/manifest-kikepzo.webmanifest"')
+        .replace('content="Kutyaiskola"', 'content="Szkenner"');
+      res.type('html').send(html);
+    } catch { res.sendFile(indexHtml); }
+  });
   app.get('*', (_req, res) => { res.setHeader('Cache-Control', 'no-cache'); res.sendFile(indexHtml); });
 } else {
   app.get('/', (_req, res) => res.type('text').send('A kliens még nincs lefordítva. Fejlesztéshez: npm run dev (http://localhost:5173), élesben: npm run build.'));
