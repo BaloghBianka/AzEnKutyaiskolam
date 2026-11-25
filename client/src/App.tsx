@@ -7,8 +7,9 @@ import { Kepzesek, Oktatok, Hirek, Hir, Rendezvenyek, Galeria, Gyik, Kapcsolat, 
 import Tagoknak from './pages/Tagoknak';
 import Kikepzo from './pages/Kikepzo';
 import { isStandalone } from './lib/pwa';
+import { lazyRetry } from './lib/recover';
 
-const AdminApp = lazy(() => import('./admin/AdminApp'));
+const AdminApp = lazy(lazyRetry(() => import('./admin/AdminApp')));
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
