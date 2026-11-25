@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import { Kepzesek, Oktatok, Hirek, Hir, Rendezvenyek, Galeria, Gyik, Kapcsolat, NotFound } from './pages/Pages';
 import Tagoknak from './pages/Tagoknak';
 import Kikepzo from './pages/Kikepzo';
+import { isStandalone } from './lib/pwa';
 
 const AdminApp = lazy(() => import('./admin/AdminApp'));
 
@@ -67,7 +68,8 @@ function AppStart() {
     if (page) try { localStorage.setItem(START_KEY, page); } catch { }
   }, [pathname]);
   useEffect(() => {
-    if (!new URLSearchParams(search).has('app')) return;
+    const launched = new URLSearchParams(search).has('app') || (isStandalone() && pathname === '/');
+    if (!launched) return;
     let target = '/';
     try { const v = localStorage.getItem(START_KEY); if (v && APP_PAGES.includes(v)) target = v; } catch { }
     navigate(target, { replace: true });
