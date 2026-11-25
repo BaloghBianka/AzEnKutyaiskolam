@@ -18,7 +18,7 @@ export default defineConfig({
         short_name: 'Kutyaiskola',
         description: 'Bérletek, QR-kód, órarend és hírek: Az Én Kutyaiskolám, Miskolc.',
         lang: 'hu',
-        start_url: '/?app=1',
+        start_url: '/tagoknak?app=1',
         scope: '/',
         display: 'standalone',
         orientation: 'portrait',

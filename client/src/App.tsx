@@ -68,9 +68,10 @@ function AppStart() {
     if (page) try { localStorage.setItem(START_KEY, page); } catch { }
   }, [pathname]);
   useEffect(() => {
-    const launched = new URLSearchParams(search).has('app') || (isStandalone() && pathname === '/');
-    if (!launched) return;
-    let target = '/';
+    const viaApp = new URLSearchParams(search).has('app');
+    if (!viaApp && !(isStandalone() && pathname === '/')) return;
+    if (pathname !== '/') { navigate(pathname, { replace: true }); return; }
+    let target = '/tagoknak';
     try { const v = localStorage.getItem(START_KEY); if (v && APP_PAGES.includes(v)) target = v; } catch { }
     navigate(target, { replace: true });
   }, []);

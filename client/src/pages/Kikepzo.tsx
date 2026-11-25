@@ -20,6 +20,14 @@ export default function Kikepzo() {
   const [token, setToken] = useState<string | null>(routeToken || null);
   const [done, setDone] = useState(false);
   const [actionErr, setActionErr] = useState('');
+  useEffect(() => {
+    const link = document.querySelector<HTMLLinkElement>('link[rel="manifest"]');
+    const title = document.querySelector<HTMLMetaElement>('meta[name="apple-mobile-web-app-title"]');
+    const prev = [link?.getAttribute('href'), title?.content] as const;
+    link?.setAttribute('href', '/manifest-kikepzo.webmanifest');
+    if (title) title.content = 'Szkenner';
+    return () => { if (link && prev[0]) link.setAttribute('href', prev[0]); if (title && prev[1]) title.content = prev[1]; };
+  }, []);
   const me = useTrainerMe();
   const refetchMe = me.refetch;
   const authed = !!me.data && !me.isError;
