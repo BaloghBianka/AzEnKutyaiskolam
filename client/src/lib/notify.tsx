@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { api } from '../api';
+import { api, ApiError } from '../api';
 import { isStandalone, useOnline } from './pwa';
 
 type State = 'loading' | 'unsupported' | 'ios-install' | 'denied' | 'off' | 'on' | 'busy';
@@ -54,8 +54,13 @@ export function NotifyCard({ who }: { who: 'tag' | 'kikepzo' }) {
       setState('on');
       setMsg('Kész! Ide fogsz értesítést kapni, például ha elmarad az óra.');
     } catch (e) {
+      const name = (e as Error)?.name;
+      if (typeof Notification !== 'undefined' && Notification.permission === 'denied') { setState('denied'); return; }
       setState('off');
-      setMsg((e as Error).message || 'Nem sikerült bekapcsolni.');
+      if (e instanceof ApiError) setMsg(e.message);
+      else if (name === 'NotAllowedError') setMsg(`A telefon nem engedte bekapcsolni az értesítést. Nézd meg a telefon Beállítások → Értesítések menüjében a „${who === 'kikepzo' ? 'Szkenner' : 'Kutyaiskola'}” résznél, hogy engedélyezve van-e, majd próbáld újra.`);
+      else if (name === 'AbortError' || name === 'InvalidStateError') setMsg('Az értesítési szolgáltatás most nem érhető el. Próbáld újra pár perc múlva.');
+      else setMsg('Nem sikerült bekapcsolni az értesítést. Próbáld újra később.');
     }
   };
 
