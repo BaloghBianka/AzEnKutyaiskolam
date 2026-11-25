@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { MemberPass } from '@shared/types';
 import { useApp, useContent } from '../context';
-import { ApiError } from '../api';
+import { ApiError, isOffline } from '../api';
+import { clearMemberCache, readMemberCache, saveMemberCache } from '../lib/offline';
+import { InstallHint } from '../lib/pwa';
 import { useMemberLogin, useMemberLogout, useMemberMe, useMemberPassword } from '../lib/queries';
 import { SiteLayout, PageHero } from '../components/Layout';
 import { Icon, Paw } from '../components/Icons';
@@ -155,10 +157,12 @@ function Dashboard() {
   const [pwOpen, setPwOpen] = useState(false);
   const [qr, setQr] = useState<MemberPass | null>(null);
   const unauthorized = me.error instanceof ApiError && me.error.status === 401;
-  useEffect(() => { if (unauthorized) refreshSession(); }, [unauthorized, refreshSession]);
+  useEffect(() => { if (unauthorized) { clearMemberCache(); refreshSession(); } }, [unauthorized, refreshSession]);
+  useEffect(() => { if (me.data) saveMemberCache(me.data); }, [me.data]);
+  const cached = !me.data && isOffline(me.error) ? readMemberCache() : null;
   const logout = async () => { await logoutM.mutateAsync().catch(() => {}); navigate('/'); };
-  if (!me.data) return <div className="empty">{me.isError && !unauthorized ? 'Nem sikerült betölteni. Próbáld újra később.' : 'Betöltés...'}</div>;
-  const m = me.data;
+  const m = me.data || cached?.data;
+  if (!m) return <div className="empty">{isOffline(me.error) ? 'Nincs internet, és ezen a telefonon még nincs elmentett bérlet. Nyisd meg egyszer térerővel.' : me.isError && !unauthorized ? 'Nem sikerült betölteni. Próbáld újra később.' : 'Betöltés...'}</div>;
   const passes = [...m.passes].sort((a, b) => Number(status(a)[1] === 'off') - Number(status(b)[1] === 'off') || String(b.start).localeCompare(String(a.start)));
   return (
     <div>
@@ -169,11 +173,18 @@ function Dashboard() {
           <button className="btn btn-member dark" type="button" onClick={logout}>Kijelentkezés</button>
         </div>
       </div>
+      {cached && (
+        <div className="offline-note">
+          <b>Nincs internet.</b> A bérleted {new Date(cached.at).toLocaleString('hu-HU', { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}-i állapotát látod. A QR-kódot ettől még le tudja olvasni a kiképző.
+          <button type="button" onClick={() => me.refetch()}>Újra</button>
+        </div>
+      )}
       {pwOpen && <PasswordForm onDone={() => setPwOpen(false)} />}
       <div className="ci-hint"><b>Edzésen:</b> mutasd a bérlet QR-kódját a kiképzőnek, ő levonja az alkalmat.</div>
       <div className="passes">
         {passes.length ? passes.map(p => <PassCard key={p.id} p={p} logo={c.site.logo} onQr={setQr} />) : <div className="no-pass">Még nincs bérleted rögzítve. Szólj az oktatóknak a pályán!</div>}
       </div>
+      <InstallHint who="tag" />
       {qr && <QrFull p={qr} onClose={() => setQr(null)} />}
     </div>
   );

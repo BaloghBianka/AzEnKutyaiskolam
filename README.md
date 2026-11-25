@@ -69,6 +69,16 @@ Minden szöveg, kép, hír, rendezvény, galériakép, oktató, vélemény, GYIK
 - Szigorú böngészőszabályok (CSP), minden fájl a saját szerverről töltődik.
 - Mentés minden módosítás előtt (`backend/data/backups/`), napi teljes pillanatkép 30 napig, és az adminból letölthető teljes mentés. Havonta töltsd le, és tárold máshol is.
 
+## Telepíthető app (PWA)
+
+Az oldal telefonra telepíthető: saját ikon, teljes képernyő, gyors indulás.
+
+- A tagi oldalon és a kiképzői szkenneren megjelenik egy „Tedd ki a kezdőképernyőre” útmutató (Androidon Telepítés gomb, iPhone-on a Safari Megosztás → Főképernyőhöz adás lépései).
+- A tag bérlete és QR-kódja net nélkül is megjelenik a legutóbb betöltött állapotban, jelölve, hogy mikori. Kijelentkezéskor törlődik a telefonról.
+- Alkalmat levonni csak internettel lehet. Offline a gomb le van tiltva.
+- Új verzió kirakása után a megnyitott app jelzi: „Elkészült az oldal új változata”, és a Frissítés gombbal betölti.
+- Az ikonok: `client/public/icons/`, a beállítások: `client/vite.config.ts`.
+
 ## Élesítés
 
 Bármilyen Node.js-t futtató tárhelyen működik (pl. Render, Railway, VPS).

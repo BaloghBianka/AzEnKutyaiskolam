@@ -12,7 +12,8 @@
     "resolveJsonModule": true,
     "allowImportingTsExtensions": false,
     "baseUrl": ".",
-    "paths": { "@shared/*": ["../backend/src/shared/*"] }
+    "paths": { "@shared/*": ["../backend/src/shared/*"] },
+    "types": ["vite/client", "vite-plugin-pwa/react"]
   },
   "include": ["src", "../backend/src/shared"]
 }

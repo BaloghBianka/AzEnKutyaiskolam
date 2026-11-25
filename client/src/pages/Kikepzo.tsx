@@ -2,7 +2,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import jsQR from 'jsqr';
 import { useContent } from '../context';
-import { ApiError } from '../api';
+import { ApiError, isOffline } from '../api';
+import { InstallHint, useOnline } from '../lib/pwa';
 import { usePassAction, useTrainerLogin, useTrainerLogout, useTrainerMe, useTrainerPass } from '../lib/queries';
 import { SiteLayout } from '../components/Layout';
 import { Paw } from '../components/Icons';
@@ -25,6 +26,7 @@ export default function Kikepzo() {
   const passQ = useTrainerPass(authed && mode === 'pass' ? token : null);
   const action = usePassAction(token);
   const logoutM = useTrainerLogout();
+  const online = useOnline();
 
   const goHome = useCallback(() => {
     setMode('home'); setToken(null); setDone(false); setActionErr('');
@@ -55,9 +57,9 @@ export default function Kikepzo() {
   const passUnauthorized = passQ.error instanceof ApiError && passQ.error.status === 401;
   useEffect(() => { if (passUnauthorized) refetchMe(); }, [passUnauthorized, refetchMe]);
 
-  let view: 'loading' | 'login' | 'home' | 'scan' | 'pass' | 'error';
+  let view: 'loading' | 'login' | 'offline' | 'home' | 'scan' | 'pass' | 'error';
   if (me.isLoading) view = 'loading';
-  else if (!authed) view = 'login';
+  else if (!authed) view = isOffline(me.error) ? 'offline' : 'login';
   else if (mode === 'pass') view = passQ.data ? 'pass' : passQ.isError && !passUnauthorized ? 'error' : 'loading';
   else view = mode;
   const name = me.data?.name || '', today = me.data?.today || [];
@@ -77,11 +79,21 @@ export default function Kikepzo() {
             <div className="ci-body">
               {view === 'loading' && <div className="ci-state"><div className="ci-spin" /></div>}
               {view === 'login' && <Login />}
+              {view === 'offline' && (
+                <div className="ci-state">
+                  <div className="ci-ico">!</div>
+                  <h2>Nincs internet</h2>
+                  <p className="mhelp">A bérletek ellenőrzéséhez és a levonáshoz internet kell. Ha lesz térerő, próbáld újra.</p>
+                  <button className="btn btn-red tr-big" type="button" onClick={() => refetchMe()}>Újra</button>
+                </div>
+              )}
               {view === 'home' && (
                 <div className="ci-state">
                   <h2>Szia, {firstName(name)}! Készen állsz?</h2>
                   <p className="mhelp">Olvasd le a tag telefonján (a „Már tag vagyok” oldalon) megjelenő bérlet QR-kódját.</p>
                   <button className="btn btn-red tr-big" type="button" onClick={scan}>Szkennelés indítása</button>
+                  {!online && <div className="tr-warn">Nincs internet. Szkennelni tudsz, de a levonáshoz net kell.</div>}
+                  <InstallHint who="kikepzo" />
                   <div className="tr-today">
                     <h3>Ma levonva ({today.length})</h3>
                     {today.length ? today.map((t, i) => <div key={i}><span><b>{t.dog || '-'}</b> · {t.name}</span><span>{t.left === null ? 'korlátlan' : `${t.left} maradt`}{t.by ? ` · ${t.by}` : ''}</span></div>) : <p className="mhelp">Ma még nem volt levonás.</p>}
@@ -121,7 +133,7 @@ export default function Kikepzo() {
                     </>
                   ) : (
                     <>
-                      <button className="btn btn-red tr-big" type="button" disabled={busy} onClick={() => use(false)}>Alkalom levonása</button>
+                      <button className="btn btn-red tr-big" type="button" disabled={busy || !online} onClick={() => use(false)}>{online ? 'Alkalom levonása' : 'Nincs internet, a levonáshoz net kell'}</button>
                       <div className="tr-row"><button className="btn btn-member dark" type="button" onClick={scan}>Másik</button><button className="btn btn-dark" type="button" onClick={goHome}>Mégse</button></div>
                     </>
                   )}
