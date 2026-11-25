@@ -41,6 +41,7 @@ export default defineConfig({
         navigateFallbackDenylist: [/^\/api\//, /^\/uploads\//, /^\/fonts\//, /^\/kikepzo/],
         cleanupOutdatedCaches: true,
         clientsClaim: true,
+        importScripts: ['/push-sw.js'],
         runtimeCaching: [
           {
             urlPattern: ({ url, sameOrigin, request }) => sameOrigin && request.mode === 'navigate' && url.pathname.startsWith('/kikepzo'),

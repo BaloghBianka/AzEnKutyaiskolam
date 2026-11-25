@@ -11,6 +11,8 @@ import { auth } from './routes/auth';
 import { member } from './routes/member';
 import { trainer } from './routes/trainer';
 import { admin } from './routes/admin';
+import { push } from './routes/push';
+import { initPush } from './push';
 
 const app = express();
 app.disable('x-powered-by');
@@ -43,6 +45,7 @@ app.use('/api', express.json({ limit: '100kb' }));
 app.use('/api', auth);
 app.use('/api/member', member);
 app.use('/api/trainer', trainer);
+app.use('/api/push', push);
 app.use('/api', (_req, res) => res.status(404).json({ error: 'Nem található' }));
 
 app.use('/uploads', express.static(UPLOAD_DIR, { maxAge: '1d', index: false, dotfiles: 'deny' }));
@@ -89,6 +92,7 @@ for (const sig of ['SIGTERM', 'SIGINT'] as const) process.on(sig, async () => { 
 async function main(): Promise<void> {
   await initStore();
   await initSessions();
+  await initPush();
   app.listen(PORT, () => {
     console.log(`Backend fut: http://localhost:${PORT}`);
     console.log(CLOUD ? 'Adattárolás: Supabase' : 'Adattárolás: helyi fájlok (backend/data)');

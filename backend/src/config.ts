@@ -28,7 +28,9 @@ export const FILES = {
   members: path.join(DATA_DIR, 'members.json'),
   trainers: path.join(DATA_DIR, 'trainers.json'),
   sessions: path.join(DATA_DIR, 'sessions.json'),
-  log: path.join(DATA_DIR, 'log.jsonl')
+  log: path.join(DATA_DIR, 'log.jsonl'),
+  push: path.join(DATA_DIR, 'push.json'),
+  vapid: path.join(DATA_DIR, 'vapid.json')
 };
 
 export const PORT = Number(process.env.PORT) || 3000;

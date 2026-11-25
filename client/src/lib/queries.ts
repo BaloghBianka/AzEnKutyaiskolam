@@ -23,7 +23,8 @@ export const keys = {
   adminContent: ['admin', 'content'] as const,
   adminMembers: ['admin', 'members'] as const,
   adminTrainers: ['admin', 'trainers'] as const,
-  adminLog: ['admin', 'log'] as const
+  adminLog: ['admin', 'log'] as const,
+  adminPush: ['admin', 'push'] as const
 };
 
 const EMPTY_SESSION: SessionInfo = { member: null, trainer: null, admin: false };
@@ -132,3 +133,7 @@ export const useCreateTrainer = () => useAdminMutation((b: { name: string; usern
 export const useUpdateTrainer = () => useAdminMutation((b: { id: string; name: string; active: boolean }) => api(`/api/admin/trainers/${b.id}`, { method: 'PUT', body: b }), [keys.adminTrainers, keys.adminLog]);
 export const useDeleteTrainer = () => useAdminMutation((id: string) => api(`/api/admin/trainers/${id}`, { method: 'DELETE' }), [keys.adminTrainers, keys.adminLog]);
 export const useTrainerResetPassword = () => useAdminMutation((b: { id: string; password: string }) => post(`/api/admin/trainers/${b.id}/password`, { password: b.password }), [keys.adminLog]);
+
+export interface PushInfo { stats: { összes: number; tag: number; kiképző: number; vendég: number }; types: string[] }
+export const useAdminPush = () => useQuery({ queryKey: keys.adminPush, queryFn: () => api<PushInfo>('/api/admin/push') });
+export const useSendPush = () => useAdminMutation((b: { title: string; body: string; target: string; url: string }) => post<{ sent: number; failed: number; removed: number }>('/api/admin/push', b), [keys.adminPush, keys.adminLog]);

@@ -13,6 +13,7 @@ import {
 } from '../store';
 import { SECTIONS, type SectionKey } from '../shared/types';
 import { CLOUD, uploadImage } from '../db';
+import { pushStats, sendPush, type PushSub } from '../push';
 
 export const admin = Router();
 
@@ -135,4 +136,30 @@ admin.delete('/members/:id', (req, res) => {
   setMembers(members.filter(x => x !== m)); saveMembers(); endSessionsWhere(s => s.kind === 'member' && s.id === m.id);
   audit(req, 'tag törölve', { member: m.name, memberId: m.id });
   res.json({ ok: true });
+});
+
+admin.get('/push', (_req, res) => {
+  const types = new Set<string>();
+  for (const m of members) for (const p of m.passes) if (p.type) types.add(p.type);
+  res.json({ stats: pushStats(), types: [...types].sort((a, b) => a.localeCompare(b, 'hu')) });
+});
+admin.post('/push', async (req, res) => {
+  const b = req.body || {};
+  const title = str(b.title, 80).trim(), body = str(b.body, 300).trim();
+  if (!title || !body) return res.status(400).json({ error: 'Add meg a címet és az üzenetet.' });
+  const url = typeof b.url === 'string' && /^\/[a-z0-9/_-]*$/i.test(b.url) ? b.url : '/tagoknak';
+  const target = str(b.target, 140);
+  const today = budToday();
+  let filter: (s: PushSub) => boolean;
+  if (target === 'all') filter = () => true;
+  else if (target === 'tag') filter = s => s.role === 'tag';
+  else if (target === 'kiképző') filter = s => s.role === 'kiképző';
+  else if (target.startsWith('tipus:')) {
+    const type = target.slice(6);
+    const ids = new Set(members.filter(m => m.passes.some(p => p.type === type && (!p.end || p.end >= today))).map(m => m.id));
+    filter = s => s.role === 'tag' && ids.has(s.id);
+  } else return res.status(400).json({ error: 'Ismeretlen célcsoport.' });
+  const r = await sendPush(filter, { title, body, url, tag: 'kozlemeny' });
+  audit(req, 'értesítés küldése', { reason: `${title}: ${body}`.slice(0, 200), section: target });
+  res.json(r);
 });

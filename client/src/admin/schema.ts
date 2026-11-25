@@ -12,7 +12,7 @@ export type FieldDef =
   | { t: 'list'; label: string; addLabel: string; addTop?: boolean; open?: boolean; bulkImages?: boolean; titleKey: string; imgKey?: string; newItem: () => Record<string, unknown>; fields: Fields };
 export type Fields = Record<string, FieldDef>;
 
-export interface SectionDef { key: SectionKey | 'members' | 'trainer'; title: string; view: string; help?: string; fields?: Fields; custom?: boolean }
+export interface SectionDef { key: SectionKey | 'members' | 'trainer' | 'push'; title: string; view: string; help?: string; fields?: Fields; custom?: boolean }
 export type SchemaEntry = SectionDef | { group: string };
 
 const T = (label: string, hint?: string): FieldDef => ({ t: 'text', label, hint });
@@ -25,6 +25,7 @@ export const SCHEMA: SchemaEntry[] = [
   { group: 'Tagok' },
   { key: 'members', title: 'Tagok és bérletek', view: '/tagoknak', custom: true },
   { key: 'trainer', title: 'Bérlet-szkennelés', view: '/kikepzo', custom: true },
+  { key: 'push', title: 'Értesítések', view: '/tagoknak', custom: true },
   { group: 'Tartalom' },
   { key: 'news', title: 'Hírek', view: '/hirek', help: 'Új hír: „Új hír hozzáadása”, töltsd ki, majd Mentés. A legújabb dátumú hír kerül előre.', fields: {
     items: { t: 'list', label: 'Hírek', addLabel: 'Új hír hozzáadása', addTop: true, titleKey: 'title', imgKey: 'image',

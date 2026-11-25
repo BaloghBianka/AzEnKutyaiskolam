@@ -4,6 +4,7 @@ import jsQR from 'jsqr';
 import { useContent } from '../context';
 import { ApiError, isOffline } from '../api';
 import { InstallHint, useOnline } from '../lib/pwa';
+import { NotifyCard } from '../lib/notify';
 import { usePassAction, useTrainerLogin, useTrainerLogout, useTrainerMe, useTrainerPass } from '../lib/queries';
 import { SiteLayout } from '../components/Layout';
 import { Paw } from '../components/Icons';
@@ -101,6 +102,7 @@ export default function Kikepzo() {
                   <p className="mhelp">Olvasd le a tag telefonján (a „Már tag vagyok” oldalon) megjelenő bérlet QR-kódját.</p>
                   <button className="btn btn-red tr-big" type="button" onClick={scan}>Szkennelés indítása</button>
                   {!online && <div className="tr-warn">Nincs internet. Szkennelni tudsz, de a levonáshoz net kell.</div>}
+                  <NotifyCard who="kikepzo" />
                   <InstallHint who="kikepzo" />
                   <div className="tr-today">
                     <h3>Ma levonva ({today.length})</h3>

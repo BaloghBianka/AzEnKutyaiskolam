@@ -39,6 +39,7 @@ import { FieldList } from './Fields';
 import { useEditor } from './store';
 import Members from './Members';
 import Trainers from './Trainers';
+import Notifications from './Notifications';
 import { clone } from './util';
 import { useAdminContent, useAdminLogin, useAdminLogout, useAdminMe } from '../lib/queries';
 
@@ -208,6 +209,7 @@ function Editor({ content }: { content: Content }) {
         <Box sx={{ p: { xs: 2, sm: 3 }, maxWidth: 1000 }}>
           {sec.key === 'members' && <Members logo={LOGO} />}
           {sec.key === 'trainer' && <Trainers />}
+          {sec.key === 'push' && <Notifications />}
           {!sec.custom && hasDraft && sec.fields && (
             <Stack spacing={2}>
               {sec.help && <Alert severity="info">{sec.help}</Alert>}

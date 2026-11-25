@@ -5,6 +5,7 @@ import { useApp, useContent } from '../context';
 import { ApiError, isOffline } from '../api';
 import { clearMemberCache, readMemberCache, saveMemberCache } from '../lib/offline';
 import { InstallHint } from '../lib/pwa';
+import { NotifyCard } from '../lib/notify';
 import { useMemberLogin, useMemberLogout, useMemberMe, useMemberPassword } from '../lib/queries';
 import { SiteLayout, PageHero } from '../components/Layout';
 import { Icon, Paw } from '../components/Icons';
@@ -185,6 +186,7 @@ function Dashboard() {
       <div className="passes">
         {passes.length ? passes.map(p => <PassCard key={p.id} p={p} logo={c.site.logo} onQr={setQr} />) : <div className="no-pass">Még nincs bérleted rögzítve. Szólj az oktatóknak a pályán!</div>}
       </div>
+      <NotifyCard who="tag" />
       <InstallHint who="tag" />
       {qr && <QrFull p={qr} onClose={() => setQr(null)} />}
     </div>

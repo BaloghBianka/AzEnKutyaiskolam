@@ -740,3 +740,13 @@ main{display:block}
 .app-offline h1{color:#fff;font-size:1.6rem}
 .app-offline p{color:rgba(255,255,255,.75);max-width:340px;margin:0 auto}
 .app-offline .btn{justify-self:center}
+.notify-card{display:flex;gap:14px;align-items:flex-start;text-align:left;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin:18px 0;box-shadow:0 14px 30px -22px rgba(0,0,0,.4)}
+.notify-card.on{background:#f2faf3;border-color:#bfe3c4}
+.notify-ico{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--dark);color:#fff}
+.notify-card.on .notify-ico{background:#2e7d32}
+.notify-body{display:grid;gap:6px;min-width:0}
+.notify-body b{font-size:.98rem}
+.notify-body p{margin:0;color:var(--muted);font-size:.9rem}
+.notify-body .btn{justify-self:start;margin-top:6px;padding:.7rem 1.3rem}
+.notify-msg{color:var(--dark)!important;font-weight:600}
+.notify-off{justify-self:start;font:inherit;font-weight:700;font-size:.82rem;border:1px solid var(--line);background:#fff;color:var(--dark);border-radius:8px;padding:.4rem .9rem;cursor:pointer;margin-top:4px}

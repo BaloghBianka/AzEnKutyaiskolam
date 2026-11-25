@@ -10,3 +10,5 @@ backend/data/trainers.json
 backend/data/sessions.json
 backend/data/log*.jsonl
 backend/data/backups/
+backend/data/push.json
+backend/data/vapid.json
