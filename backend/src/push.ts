@@ -83,7 +83,7 @@ export async function sendPush(filter: (s: PushSub) => boolean, msg: PushMessage
   const errors: string[] = [];
   for (let i = 0; i < targets.length; i += 25) {
     const batch = targets.slice(i, i + 25);
-    const results = await Promise.allSettled(batch.map(s => webpush.sendNotification({ endpoint: s.endpoint, keys: s.keys }, payload, { TTL: 12 * 60 * 60, urgency: 'high', topic: msg.tag })));
+    const results = await Promise.allSettled(batch.map(s => webpush.sendNotification({ endpoint: s.endpoint, keys: s.keys }, payload, { TTL: 12 * 60 * 60, urgency: 'high' })));
     results.forEach((r, j) => {
       if (r.status === 'fulfilled') { sent++; return; }
       failed++;
