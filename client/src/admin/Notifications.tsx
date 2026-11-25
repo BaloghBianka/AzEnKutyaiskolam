@@ -39,7 +39,12 @@ export default function Notifications() {
     if (!title.trim() || !body.trim()) { toast('Add meg a címet és az üzenetet.', true); return; }
     if (!(await askConfirm(`Elküldöd az értesítést ${targetLabel}? Azonnal megjelenik a telefonjukon.`))) return;
     send.mutate({ title: title.trim(), body: body.trim(), target, url }, {
-      onSuccess: r => toast(r.sent ? `Elküldve ${r.sent} eszközre.${r.failed ? ` ${r.failed} eszközre nem sikerült.` : ''}` : 'Nincs olyan feliratkozott eszköz, akinek ezt el lehetne küldeni.', !r.sent),
+      onSuccess: r => {
+        const err = r.errors?.length ? ` Hiba: ${r.errors[0]}` : '';
+        if (r.sent) toast(`Elküldve ${r.sent} eszközre.${r.failed ? ` ${r.failed} eszközre nem sikerült.${err}` : ''}`);
+        else if (r.failed) toast(`Nem sikerült elküldeni (${r.failed} eszköz).${r.removed ? ' A megszűnt feliratkozást töröltem.' : ''}${err}`, true);
+        else toast('Ebben a csoportban nincs feliratkozott eszköz.', true);
+      },
       onError: e => toast(e.message, true)
     });
   };

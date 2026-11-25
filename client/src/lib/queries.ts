@@ -136,4 +136,4 @@ export const useTrainerResetPassword = () => useAdminMutation((b: { id: string; 
 
 export interface PushInfo { stats: { összes: number; tag: number; kiképző: number; vendég: number }; types: string[] }
 export const useAdminPush = () => useQuery({ queryKey: keys.adminPush, queryFn: () => api<PushInfo>('/api/admin/push') });
-export const useSendPush = () => useAdminMutation((b: { title: string; body: string; target: string; url: string }) => post<{ sent: number; failed: number; removed: number }>('/api/admin/push', b), [keys.adminPush, keys.adminLog]);
+export const useSendPush = () => useAdminMutation((b: { title: string; body: string; target: string; url: string }) => post<{ sent: number; failed: number; removed: number; errors?: string[] }>('/api/admin/push', b), [keys.adminPush, keys.adminLog]);

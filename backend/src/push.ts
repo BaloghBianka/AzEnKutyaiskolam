@@ -75,22 +75,27 @@ export function pushStats() {
 
 export interface PushMessage { title: string; body: string; url: string; tag?: string }
 
-export async function sendPush(filter: (s: PushSub) => boolean, msg: PushMessage): Promise<{ sent: number; failed: number; removed: number }> {
+export async function sendPush(filter: (s: PushSub) => boolean, msg: PushMessage): Promise<{ sent: number; failed: number; removed: number; errors: string[] }> {
   const targets = subs.filter(filter);
   const payload = JSON.stringify(msg);
   let sent = 0, failed = 0;
   const gone = new Set<string>();
+  const errors: string[] = [];
   for (let i = 0; i < targets.length; i += 25) {
     const batch = targets.slice(i, i + 25);
     const results = await Promise.allSettled(batch.map(s => webpush.sendNotification({ endpoint: s.endpoint, keys: s.keys }, payload, { TTL: 12 * 60 * 60, urgency: 'high', topic: msg.tag })));
     results.forEach((r, j) => {
       if (r.status === 'fulfilled') { sent++; return; }
       failed++;
-      const code = (r.reason as { statusCode?: number })?.statusCode;
+      const reason = r.reason as { statusCode?: number; body?: string; message?: string };
+      const code = reason?.statusCode;
+      const host = (() => { try { return new URL(batch[j].endpoint).host; } catch { return '?'; } })();
+      const detail = `${host}: ${code ?? 'hálózati hiba'} ${String(reason?.body || reason?.message || '').replace(/\s+/g, ' ').slice(0, 160)}`.trim();
+      if (errors.length < 3) errors.push(detail);
       if (code === 404 || code === 410) gone.add(batch[j].endpoint);
-      else console.error('Push hiba:', code, String((r.reason as Error)?.message || r.reason).slice(0, 200));
+      console.error('Push hiba:', detail);
     });
   }
   if (gone.size) { subs = subs.filter(s => !gone.has(s.endpoint)); save(); }
-  return { sent, failed, removed: gone.size };
+  return { sent, failed, removed: gone.size, errors };
 }
