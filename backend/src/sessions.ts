@@ -3,6 +3,7 @@ import type { Request, Response } from 'express';
 import { FILES } from './config';
 import { readJson, writeJsonAtomic } from './util';
 import { isHttps } from './security';
+import { CLOUD, kvLoad, kvSave } from './db';
 
 export type Kind = 'admin' | 'member' | 'trainer';
 interface Session { kind: Kind; id: string; exp: number }
@@ -12,7 +13,13 @@ export const TTL: Record<Kind, number> = { admin: 8 * 60 * 60 * 1000, member: 36
 const COOKIE: Record<Kind, string> = { admin: 'sid', member: 'msid', trainer: 'tsid' };
 const SAME: Record<Kind, string> = { admin: 'Strict', member: 'Lax', trainer: 'Lax' };
 
-const sessions = new Map<string, Session>(Object.entries(readJson<Record<string, Session>>(FILES.sessions, {})));
+const sessions = new Map<string, Session>(CLOUD ? [] : Object.entries(readJson<Record<string, Session>>(FILES.sessions, {})));
+export async function initSessions(): Promise<void> {
+  if (!CLOUD) return;
+  const kv = await kvLoad(['sessions']);
+  const now = Date.now();
+  for (const [h, s] of Object.entries((kv.sessions || {}) as Record<string, Session>)) if (s && s.exp > now) sessions.set(h, s);
+}
 let timer: NodeJS.Timeout | null = null;
 function persist(): void {
   if (timer) clearTimeout(timer);
@@ -20,6 +27,7 @@ function persist(): void {
 }
 export function flushSessions(): void {
   if (timer) clearTimeout(timer);
+  if (CLOUD) { kvSave('sessions', Object.fromEntries(sessions)); return; }
   try { writeJsonAtomic(FILES.sessions, Object.fromEntries(sessions)); } catch (e) { console.error(e); }
 }
 const tokHash = (t: string) => crypto.createHash('sha256').update(t).digest('hex');

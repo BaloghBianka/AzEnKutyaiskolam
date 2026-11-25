@@ -3,9 +3,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { PORT, TRUST_PROXY, FORCE_HTTPS, PUBLIC_DIR, UPLOAD_DIR, CLIENT_DIST } from './config';
 import { isHttps } from './security';
-import { flushSessions } from './sessions';
+import { flushSessions, initSessions } from './sessions';
+import { CLOUD, flushAll, pruneHistory } from './db';
 import { dailySnapshot } from './util';
-import { content, readAdmin } from './store';
+import { content, readAdmin, initStore } from './store';
 import { auth } from './routes/auth';
 import { member } from './routes/member';
 import { trainer } from './routes/trainer';
@@ -63,13 +64,24 @@ app.use((err: Error & { type?: string; status?: number }, _req: Request, res: Re
   res.status(500).json({ error: 'Szerverhiba' });
 });
 
-dailySnapshot();
-setInterval(dailySnapshot, 60 * 60 * 1000).unref();
-for (const sig of ['SIGTERM', 'SIGINT'] as const) process.on(sig, () => { flushSessions(); process.exit(0); });
+if (CLOUD) {
+  pruneHistory();
+  setInterval(pruneHistory, 24 * 60 * 60 * 1000).unref();
+} else {
+  dailySnapshot();
+  setInterval(dailySnapshot, 60 * 60 * 1000).unref();
+}
+for (const sig of ['SIGTERM', 'SIGINT'] as const) process.on(sig, async () => { flushSessions(); await flushAll(); process.exit(0); });
 
-app.listen(PORT, () => {
-  console.log(`Backend fut: http://localhost:${PORT}`);
-  if (process.env.ADMIN_PASSWORD && process.env.ADMIN_PASSWORD.trim().length < 12) console.log('FIGYELEM: az ADMIN_PASSWORD rövidebb 12 karakternél, ezért nincs használatban.');
-  if (!readAdmin()) console.log('FIGYELEM: nincs admin jelszó. Állítsd be: npm run jelszo, vagy az ADMIN_PASSWORD környezeti változóval (min. 12 karakter).');
-  if (!TRUST_PROXY) console.log('Megjegyzés: TRUST_PROXY=0. Ha a szerver proxy mögött fut (pl. Render), állítsd TRUST_PROXY=1-re.');
-});
+async function main(): Promise<void> {
+  await initStore();
+  await initSessions();
+  app.listen(PORT, () => {
+    console.log(`Backend fut: http://localhost:${PORT}`);
+    console.log(CLOUD ? 'Adattárolás: Supabase' : 'Adattárolás: helyi fájlok (backend/data)');
+    if (process.env.ADMIN_PASSWORD && process.env.ADMIN_PASSWORD.trim().length < 12) console.log('FIGYELEM: az ADMIN_PASSWORD rövidebb 12 karakternél, ezért nincs használatban.');
+    if (!readAdmin()) console.log('FIGYELEM: nincs admin jelszó. Állítsd be: npm run jelszo, vagy az ADMIN_PASSWORD környezeti változóval (min. 12 karakter).');
+    if (!TRUST_PROXY) console.log('Megjegyzés: TRUST_PROXY=0. Ha a szerver proxy mögött fut (pl. Render), állítsd TRUST_PROXY=1-re.');
+  });
+}
+main().catch(e => { console.error('Indítási hiba, nem sikerült betölteni az adatokat:', e); process.exit(1); });

@@ -75,7 +75,24 @@ Bármilyen Node.js-t futtató tárhelyen működik (pl. Render, Railway, VPS).
 
 1. `npm install && npm run build`, indítás: `npm start`.
 2. Környezeti változók proxy mögött: `TRUST_PROXY=1`, `FORCE_HTTPS=1` (és ha kell, `PORT`).
-3. A `backend/data/` és a `public/uploads/` mappa **tartós lemezen** legyen.
+3. Adattárolás: vagy Supabase (lent), vagy a `backend/data/` és a `public/uploads/` mappa **tartós lemezen** legyen.
 4. Csak HTTPS-en üzemeltesd (a kamerás szkenner is csak így működik).
 5. Állíts be erős admin jelszót, hozd létre a kiképzői fiókokat, cseréld a MINTA véleményeket.
 6. Frissítsd az adatkezelési tájékoztatót (a tagok neve, e-mail címe, telefonszáma, kutyája és részvételi naplója is tárolva van).
+
+## Supabase (adatbázis ingyenes tárhelyhez)
+
+Ha be van állítva a `SUPABASE_URL` és a `SUPABASE_SERVICE_ROLE_KEY`, a szerver a tartalmat, a tagokat, a kiképzőket, a munkameneteket és a naplót a Supabase-ben tárolja, a feltöltött képeket pedig a Supabase Storage `uploads` tárolójában. Így az ingyenes Renderen sem vesznek el az adatok. Ha nincsenek beállítva, minden a helyi fájlokba kerül.
+
+1. supabase.com: új projekt (régió: Central EU, Frankfurt).
+2. SQL Editor: futtasd le a `supabase/schema.sql` tartalmát.
+3. Project Settings → API: a **Project URL** a `SUPABASE_URL`, a **service_role / secret** kulcs a `SUPABASE_SERVICE_ROLE_KEY`. Ez titok: csak a Render Environment beállításaiba kerülhet, a kódba és a GitHubra soha.
+4. A helyi adatok áttöltése (egyszer, a saját gépeden, zsh-ban). A kulcsot rejtve kéri, így nem marad a parancselőzményekben:
+
+```bash
+read -s "K?Supabase secret kulcs: " && echo && SUPABASE_URL=https://PROJEKT.supabase.co SUPABASE_SERVICE_ROLE_KEY="$K" npm run feltoltes; unset K
+```
+
+5. Renderen: Environment → a két változó felvétele → Save. Az újraindulás után a napló első sorai között ez áll: `Adattárolás: Supabase`.
+
+Minden mentés előtti állapot a `kv_history` táblába is bekerül (60 napig). Az ingyenes Supabase-projekt egy hét teljes tétlenség után szünetel, ilyenkor a Supabase felületén egy kattintással újraindítható.

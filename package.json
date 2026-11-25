@@ -9,6 +9,7 @@
     "build": "npm run build -w client && npm run build -w backend",
     "start": "npm run start -w backend",
     "jelszo": "npm run jelszo -w backend",
+    "feltoltes": "npm run feltoltes -w backend --",
     "typecheck": "npm run typecheck -w backend && npm run typecheck -w client"
   },
   "devDependencies": {

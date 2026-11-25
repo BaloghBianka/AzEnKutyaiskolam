@@ -9,7 +9,8 @@
     "build": "tsc -p tsconfig.json",
     "start": "node dist/server.js",
     "jelszo": "tsx src/setPassword.ts",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "feltoltes": "tsx src/migrate.ts"
   },
   "dependencies": {
     "express": "4.21.2"

@@ -12,6 +12,7 @@ import {
   trainers, setTrainers, saveTrainers, publicTrainer, normUser, todayList, readLog, audit, isAdmin, type Member, type TrainerRec
 } from '../store';
 import { SECTIONS, type SectionKey } from '../shared/types';
+import { CLOUD, uploadImage } from '../db';
 
 export const admin = Router();
 
@@ -28,7 +29,7 @@ admin.put('/content/:key', express.json({ limit: '2mb' }), (req, res) => {
   res.json({ ok: true });
 });
 
-admin.post('/upload', express.json({ limit: Math.ceil(MAX_UPLOAD * 1.4) + 10_000 }), (req, res) => {
+admin.post('/upload', express.json({ limit: Math.ceil(MAX_UPLOAD * 1.4) + 10_000 }), async (req, res) => {
   const mm = /^data:(image\/(jpeg|png|webp|gif));base64,(.+)$/.exec(String(req.body?.data || ''));
   if (!mm) return res.status(400).json({ error: 'Csak JPG, PNG, WEBP vagy GIF kép tölthető fel.' });
   const buf = Buffer.from(mm[3], 'base64');
@@ -39,6 +40,10 @@ admin.post('/upload', express.json({ limit: Math.ceil(MAX_UPLOAD * 1.4) + 10_000
   const ext = mm[2] === 'jpeg' ? 'jpg' : mm[2];
   const base = String(req.body?.name || 'kep').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\.[a-z0-9]+$/, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'kep';
   const name = `${base}-${crypto.randomBytes(4).toString('hex')}.${ext}`;
+  if (CLOUD) {
+    try { return res.json({ url: await uploadImage(name, buf, mm[1]) }); }
+    catch (e) { console.error('Képfeltöltési hiba:', e); return res.status(502).json({ error: 'A kép feltöltése nem sikerült. Próbáld újra.' }); }
+  }
   fs.writeFileSync(path.join(UPLOAD_DIR, name), buf);
   res.json({ url: '/uploads/' + name });
 });

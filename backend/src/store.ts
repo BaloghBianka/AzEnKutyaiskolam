@@ -5,22 +5,30 @@ import { FILES } from './config';
 import { readJson, writeJsonAtomic, backupBeforeWrite, budToday, str, isDate } from './util';
 import { clientIp, hashPw, type PwHash } from './security';
 import { getSession } from './sessions';
+import { CLOUD, kvLoad, kvSave, logInsert, logLoad } from './db';
 import type { Content, Pass, AdminMember, MemberView, TrainerAccount, TrainerPassView, TodayItem, LogEntry } from './shared/types';
 
 const loaded = readJson<Content | null>(FILES.content, null);
 if (!loaded) throw new Error('Hiányzik vagy hibás a backend/data/content.json');
 export const content: Content = loaded;
-export function saveContent(): void { backupBeforeWrite(FILES.content, 'content', 30); writeJsonAtomic(FILES.content, content); }
+
+function persist(key: 'content' | 'members' | 'trainers', file: string, data: unknown, keep: number): void {
+  if (CLOUD) { kvSave(key, data, true); return; }
+  backupBeforeWrite(file, key, keep);
+  writeJsonAtomic(file, data);
+}
+export function saveContent(): void { persist('content', FILES.content, content, 30); }
 
 export interface Member { id: string; name: string; email: string; phone: string; dogs: string; note: string; passes: Pass[]; created: string; pw?: PwHash }
-export let members: Member[] = readJson<Member[]>(FILES.members, []);
-(() => {
+export let members: Member[] = CLOUD ? [] : readJson<Member[]>(FILES.members, []);
+function fixTokens(): boolean {
   let ch = false;
   for (const m of members) for (const ps of m.passes || []) if (!/^[a-f0-9]{24}$/.test(ps.token || '')) { ps.token = crypto.randomBytes(12).toString('hex'); ch = true; }
-  if (ch) writeJsonAtomic(FILES.members, members);
-})();
+  return ch;
+}
+if (!CLOUD && fixTokens()) writeJsonAtomic(FILES.members, members);
 export function setMembers(list: Member[]): void { members = list; }
-export function saveMembers(): void { backupBeforeWrite(FILES.members, 'members', 200); writeJsonAtomic(FILES.members, members); }
+export function saveMembers(): void { persist('members', FILES.members, members, 200); }
 export const normEmail = (e: unknown) => String(e ?? '').trim().toLowerCase();
 
 export function cleanPass(p: Partial<Pass>): Pass {
@@ -39,9 +47,9 @@ export const memberView = (m: Member): MemberView => ({ name: m.name, email: m.e
 export function currentMember(req: Request): Member | null { const s = getSession(req, 'member'); return s ? members.find(m => m.id === s.id) || null : null; }
 
 export interface TrainerRec { id: string; name: string; username: string; pw: PwHash; active: boolean; created: string }
-export let trainers: TrainerRec[] = readJson<TrainerRec[]>(FILES.trainers, []);
+export let trainers: TrainerRec[] = CLOUD ? [] : readJson<TrainerRec[]>(FILES.trainers, []);
 export function setTrainers(list: TrainerRec[]): void { trainers = list; }
-export function saveTrainers(): void { backupBeforeWrite(FILES.trainers, 'trainers', 30); writeJsonAtomic(FILES.trainers, trainers); }
+export function saveTrainers(): void { persist('trainers', FILES.trainers, trainers, 30); }
 export const normUser = (u: unknown) => String(u ?? '').trim().toLowerCase();
 export const publicTrainer = (t: TrainerRec): TrainerAccount => ({ id: t.id, name: t.name, username: t.username, active: t.active !== false, created: t.created });
 export function currentTrainer(req: Request): TrainerRec | null {
@@ -84,14 +92,32 @@ export function whoAmI(req: Request): { role: string; name: string } {
 export function audit(req: Request, action: string, details: Partial<LogEntry> = {}, as?: { role: string; name: string }): void {
   const who = as || whoAmI(req);
   const entry: LogEntry = { t: new Date().toISOString(), by: who.name, role: who.role, action, ip: clientIp(req), ...details };
+  if (CLOUD) { memLog.unshift(entry); if (memLog.length > MEM_LOG) memLog.length = MEM_LOG; logInsert(entry); return; }
   try {
     if (fs.existsSync(FILES.log) && fs.statSync(FILES.log).size > 5 * 1024 * 1024) fs.renameSync(FILES.log, FILES.log.replace('.jsonl', `-${Date.now()}.jsonl`));
     fs.appendFileSync(FILES.log, JSON.stringify(entry) + '\n');
   } catch (e) { console.error('Napló hiba:', e); }
 }
+const MEM_LOG = 5000;
+let memLog: LogEntry[] = [];
 export function readLog(limit = 300): LogEntry[] {
+  if (CLOUD) return memLog.slice(0, limit);
   try { return fs.readFileSync(FILES.log, 'utf8').trim().split('\n').filter(Boolean).slice(-limit).map(l => JSON.parse(l) as LogEntry).reverse(); } catch { return []; }
 }
 const ENV_PW = (process.env.ADMIN_PASSWORD || '').trim();
 const envAdmin: PwHash | null = ENV_PW.length >= 12 ? hashPw(ENV_PW) : null;
-export const readAdmin = () => readJson<PwHash | null>(FILES.admin, null) ?? envAdmin;
+export const readAdmin = () => envAdmin ?? readJson<PwHash | null>(FILES.admin, null);
+
+export async function initStore(): Promise<void> {
+  if (!CLOUD) return;
+  const kv = await kvLoad(['content', 'members', 'trainers']);
+  if (kv.content && typeof kv.content === 'object') {
+    for (const k of Object.keys(content)) delete (content as unknown as Record<string, unknown>)[k];
+    Object.assign(content, kv.content);
+  } else kvSave('content', content, true);
+  members = Array.isArray(kv.members) ? (kv.members as Member[]) : [];
+  trainers = Array.isArray(kv.trainers) ? (kv.trainers as TrainerRec[]) : [];
+  if (fixTokens()) saveMembers();
+  memLog = (await logLoad(MEM_LOG)) as LogEntry[];
+  console.log(`Supabase: betöltve ${members.length} tag, ${trainers.length} kiképző, ${memLog.length} naplóbejegyzés.`);
+}
