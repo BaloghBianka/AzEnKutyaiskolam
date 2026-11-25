@@ -1,7 +1,7 @@
 import { QueryClient, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { AdminMember, Content, LogEntry, MemberView, SectionKey, SessionInfo, TodayItem, TrainerAccount, TrainerPassView } from '@shared/types';
 import { api, ApiError, isOffline } from '../api';
-import { clearMemberCache, readMemberCache } from './offline';
+import { clearMemberCache, readContentCache, readMemberCache, saveContentCache } from './offline';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,7 +29,25 @@ export const keys = {
 const EMPTY_SESSION: SessionInfo = { member: null, trainer: null, admin: false };
 const post = <T,>(path: string, body?: unknown) => api<T>(path, { method: 'POST', body });
 
-export const useContentQuery = () => useQuery({ queryKey: keys.content, queryFn: () => api<Content>('/api/content'), staleTime: 5 * 60_000 });
+async function fetchContent(): Promise<Content> {
+  try {
+    const c = await api<Content>('/api/content');
+    saveContentCache(c);
+    return c;
+  } catch (e) {
+    const cached = isOffline(e) ? readContentCache() : null;
+    if (cached) return cached.data;
+    throw e;
+  }
+}
+const contentSeed = readContentCache();
+export const useContentQuery = () => useQuery({
+  queryKey: keys.content,
+  queryFn: fetchContent,
+  staleTime: 5 * 60_000,
+  initialData: contentSeed?.data,
+  initialDataUpdatedAt: contentSeed ? 0 : undefined
+});
 async function fetchSession(): Promise<SessionInfo> {
   try { return await api<SessionInfo>('/api/session'); }
   catch (e) {
@@ -37,7 +55,11 @@ async function fetchSession(): Promise<SessionInfo> {
     return cached ? { ...EMPTY_SESSION, member: { name: cached.data.name } } : EMPTY_SESSION;
   }
 }
-export const useSessionQuery = () => useQuery({ queryKey: keys.session, queryFn: fetchSession, placeholderData: EMPTY_SESSION });
+export const useSessionQuery = () => useQuery({
+  queryKey: keys.session,
+  queryFn: fetchSession,
+  placeholderData: () => { const c = readMemberCache(); return c ? { ...EMPTY_SESSION, member: { name: c.data.name } } : EMPTY_SESSION; }
+});
 
 export function useMemberLogin() {
   const qc = useQueryClient();

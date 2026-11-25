@@ -20,10 +20,18 @@ function ScrollManager() {
 function OldTrainerLink() { const { '*': rest } = useParams(); return <Navigate to={'/kikepzo/' + (rest || '')} replace />; }
 
 function Site() {
-  const { content } = useApp();
+  const { content, contentError, retryContent } = useApp();
   const { pathname } = useLocation();
   useScrollEffects();
   useReveal(pathname + (content ? '1' : '0'));
+  if (!content && contentError) return (
+    <div className="app-loading app-offline">
+      <img src="/icons/icon-192.png" alt="" width={72} height={72} />
+      <h1>Nincs internet</h1>
+      <p>Az oldal még nem volt megnyitva ezen a telefonon térerővel, ezért nincs mit megmutatni. Nyisd meg egyszer internettel, utána net nélkül is működik.</p>
+      <button type="button" className="btn btn-red" onClick={retryContent}>Újra</button>
+    </div>
+  );
   if (!content) return <div className="app-loading"><div className="ci-spin" /></div>;
   return (
     <>

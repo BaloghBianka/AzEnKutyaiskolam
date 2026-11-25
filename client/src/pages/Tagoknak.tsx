@@ -159,9 +159,10 @@ function Dashboard() {
   const unauthorized = me.error instanceof ApiError && me.error.status === 401;
   useEffect(() => { if (unauthorized) { clearMemberCache(); refreshSession(); } }, [unauthorized, refreshSession]);
   useEffect(() => { if (me.data) saveMemberCache(me.data); }, [me.data]);
-  const cached = !me.data && isOffline(me.error) ? readMemberCache() : null;
+  const stored = !me.data && !unauthorized ? readMemberCache() : null;
+  const cached = stored && isOffline(me.error) ? stored : null;
   const logout = async () => { await logoutM.mutateAsync().catch(() => {}); navigate('/'); };
-  const m = me.data || cached?.data;
+  const m = me.data || stored?.data;
   if (!m) return <div className="empty">{isOffline(me.error) ? 'Nincs internet, és ezen a telefonon még nincs elmentett bérlet. Nyisd meg egyszer térerővel.' : me.isError && !unauthorized ? 'Nem sikerült betölteni. Próbáld újra később.' : 'Betöltés...'}</div>;
   const passes = [...m.passes].sort((a, b) => Number(status(a)[1] === 'off') - Number(status(b)[1] === 'off') || String(b.start).localeCompare(String(a.start)));
   return (

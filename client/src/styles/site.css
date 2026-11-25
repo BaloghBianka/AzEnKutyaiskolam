@@ -735,3 +735,8 @@ main{display:block}
 .pwa-x{position:absolute;top:8px;right:8px;width:30px;height:30px;border:0;border-radius:50%;background:var(--gray);color:var(--dark);cursor:pointer;font-size:.8rem}
 .offline-note{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;background:#fff7e6;border:1px solid #f3d08a;color:#6b4a00;border-radius:12px;padding:12px 16px;margin:0 0 18px;font-size:.92rem}
 .offline-note button{font:inherit;font-weight:700;font-size:.82rem;border:1px solid currentColor;background:transparent;color:inherit;border-radius:8px;padding:.35rem .8rem;cursor:pointer}
+.app-offline{color:#fff;text-align:center;align-content:center;gap:16px;padding:24px}
+.app-offline img{border-radius:16px;justify-self:center}
+.app-offline h1{color:#fff;font-size:1.6rem}
+.app-offline p{color:rgba(255,255,255,.75);max-width:340px;margin:0 auto}
+.app-offline .btn{justify-self:center}
