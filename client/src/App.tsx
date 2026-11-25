@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react';
-import { Navigate, Route, Routes, useLocation, useParams } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useApp } from './context';
 import { useReveal, useScrollEffects } from './lib/effects';
 import Home from './pages/Home';
@@ -48,7 +48,30 @@ function Site() {
   );
 }
 
+const START_KEY = 'kutyaiskola.kezdolap';
+const APP_PAGES = ['/tagoknak', '/kikepzo'];
+
+function AppStart() {
+  const { pathname, search } = useLocation();
+  const navigate = useNavigate();
+  useEffect(() => {
+    const page = APP_PAGES.find(p => pathname === p || pathname.startsWith(p + '/'));
+    if (page) try { localStorage.setItem(START_KEY, page); } catch { }
+  }, [pathname]);
+  useEffect(() => {
+    if (!new URLSearchParams(search).has('app')) return;
+    let target = '/';
+    try { const v = localStorage.getItem(START_KEY); if (v && APP_PAGES.includes(v)) target = v; } catch { }
+    navigate(target, { replace: true });
+  }, []);
+  return null;
+}
+
 export default function App() {
+  return <><AppStart /><Pages /></>;
+}
+
+function Pages() {
   const { pathname } = useLocation();
   if (pathname === '/admin' || pathname.startsWith('/admin/')) {
     return <Suspense fallback={<div className="app-loading"><div className="ci-spin" /></div>}><AdminApp /></Suspense>;
